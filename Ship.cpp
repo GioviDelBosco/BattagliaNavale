@@ -1,3 +1,5 @@
+#ifndef SHIP
+#define SHIP
 #include <iostream>
 #include <string>
 #include "Ship.h"
@@ -9,6 +11,12 @@ const int LINE=12;
 
 char YourField[LINE][COL];
 char AttackField[LINE][COL];
+
+Ship::Ship(int size, int x, int y){
+    shipSize = size;
+    posX = x;
+    posY = y;
+}
 
 void Ship::PosizionaBattleShip(string coordinate){
     //VALIDO SOLO PER COORDINATE CON LETTRE MAIUSCOLE
@@ -73,3 +81,4 @@ void Ship::PrintBattleField(){
     }
     cout<<endl;
 }
+#endif
