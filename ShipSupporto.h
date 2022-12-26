@@ -10,6 +10,7 @@ class ShipSupporto{
     public:
         ShipSupporto();
         void muoviERipara();
+        void inserisciSupporto();
     private:
         int dimensione;
         int corazza;
