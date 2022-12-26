@@ -14,24 +14,32 @@ int main(){
     string battleship;
     string support;
     string submarine;
+
+    //Creiamo gli oggetti ship
+    Ship naveDaBattaglia;
+    Ship naveDiSupporto;
+    Ship sottomarino;
+    
+    
     for(int i=0;i<3;i++){
         //XY start XY finish ---> B2 B6
         cout<<"Inserire coordinata corazzata "<<i+1<<"(XY Origin XY Finish): ";
         cin>>battleship;
-        PosizionaBattleship(battleship);
+        naveDaBattaglia.PosizionaBattleShip(battleship);
     }
     for(int i=0;i<2;i++){
         //XY start XY finish ---> B2 B6
         cout<<"Inserire coordinata support "<<i+1<<"(XY Origin XY Finish): ";
         cin>>support;
-        Ship::PosizionaSupport(support);
+       naveDiSupporto.PosizionaSupport(support);
     }
     for(int i=0;i<1;i++){
         //XY start XY finish ---> B2 B6
         cout<<"Inserire coordinata submarine "<<i+1<<"(XY Origin XY Finish): ";
         cin>>submarine;
-        PosizionaSubmarine(submarine);
+        sottomarino.PosizionaSubmarine(submarine);
     }
-    PrintBattleField();
+    //NON VA SU SHIP!!!!
+    naveDaBattaglia.PrintBattleField();
     return 0;
 }

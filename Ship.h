@@ -5,7 +5,8 @@ Membri: Mattia Colapietro, Giuseppe Santoro, Giovanni Sgaravatto*/
 
 
 //file.h Ship
-
+#ifndef SHIPH
+#define SHIPH
 #include<iostream>
 #include<string>
 
@@ -20,3 +21,4 @@ class Ship{
     void PosizionaSubmarine(string coordinata);
     void PosizionaSupport(string coordinata);
 };
+#endif
