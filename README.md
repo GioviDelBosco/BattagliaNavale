@@ -1,2 +1,2 @@
 # BattagliaNavale
-<h1>Progetto Battaglia Navale </h1>
+Progetto di gruppo, Battaglia Navale
