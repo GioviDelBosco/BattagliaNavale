@@ -16,6 +16,4 @@ class ShipSupporto{
         int corazza;
 
 };
-
-
 #endif

@@ -15,51 +15,65 @@ const int LINE = 12;
 
 char YourField[LINE][COL];
 char AttackField[LINE][COL];
+//STAMPA GRIGLIA CON POSIZIONAMENTI 
+void Griglia(int line,int column){
+    //cout<<"\t";
+    for(int i=1; i<=line; i++){
+        for(int j=1; j<=column; j++){
+            cout<<"|   "<<YourField[i][j]<<"\t";
+        } 
+        cout<<endl;
+    }
+    cout<<endl;
+}
 
-// MAIN
-int main()
-{
-    string coordinata;
-
-    // Creiamo gli oggetti ship
-    ShipCorazzata naveDaBattaglia;
-    ShipSupporto naveDiSupporto;
-    ShipSottomarino sottomarino;
-
-    //stampo gli indici delle colonne
+//STAMPA GRIGLIA VUOTA
+void printGrigliaVuota(int line,int coloumn){
+    //matrice[12]x[12]
     cout << "\t";
-    for (int i = 1; i <= 12; i++)
+    for (int col = 0; col<COL; col++)
     {
-        cout << i << "\t";
+        cout << col + 1 << "\t";
     }
     cout << endl;
+    //stampa righe senza J,K
 
     for (int i = 0; i < LINE; i++)
     {
+        if(i==9){
+            char NoJ=(char)(i+67);
+            cout <<  NoJ<< "\t";
+        }
+        else if(i==10)
+        {
+            char NoK=(char)(i+67);
+            cout <<  NoK<< "\t";
+        }
+        else if(i==11){
+            char JumpL=(char)(i+67);
+            cout<< JumpL<< "\t";
+        }
+        else{
+            char IndexLine=(char)(i+65);
+        cout <<  IndexLine<< "\t";
+        }
         
-        cout << i + 1 << "\t";
         for (int c = 0; c < COL; c++)
         {
-            cout << "A   |   ";
+            cout << "    |   ";
         }
         cout << endl;
     }
-    
     cout<<"\n";
-    /*
-        >> Quali sono le coordinate per la corazzata 1:
-        >> B6 B10
+}
 
-    */
-    cout<<"Inserisci le coordinate dove vuoi inserire la corazzata 1\n";
-    getline(std::cin, coordinata);
+//COORDINATE CORAZZATA
+void ConvertStringToInt(string coordinata){
     stringstream ss(coordinata);
-
     //creo le 2 variabili per il posizionamneto della barca
     string coordinateXYi, coordinateXYf;
     ss >> coordinateXYi >> coordinateXYf;
 
-    cout << "Le coordinate iniziali = " << coordinateXYi << "\nLe coordinate finali = " << coordinateXYf << std::endl;
     string Xo = coordinateXYi.substr(0,1);
     string Yo = coordinateXYi.substr(1,coordinateXYi.length()-1); 
     string Xe = coordinateXYf.substr(0,1);
@@ -73,9 +87,10 @@ int main()
         if(isalpha(elem))
         {
             elem = toupper(elem);
-            Xi += static_cast<int>(elem - 'A' + 1);
+            Xi += static_cast<int>(elem - 'A'); // DA CAPIRE PERCHé SENZA IL +1
         }
     }
+    
     for (auto& elem : Xe)
     {
         if(isalpha(elem))
@@ -84,46 +99,36 @@ int main()
             Xf += static_cast<int>(elem - 'A' + 1);
         }
     }
-    //int Xi=atoi(Xo);
-    //int Xf=static_cast<int>(Xe)-65;
-    //int Yi=static_cast<int>(Yo);
-    cout<<Xi<<"\n";
-    cout<<Yi<<"\n";
-    cout<<Xf<<"\n";
-    return 0;
-}
-
-/*void Ship::PosizionaBattleShip(string coordinate){
-    //VALIDO SOLO PER COORDINATE CON LETTRE MAIUSCOLE
-    char x1Origin = coordinate[0];
-    int Xo=(int)x1Origin-65;
-    int Yo=(int)coordinate[1]-48;
-
-    char x1Finish= coordinate[2];
-    int Xf=(int)x1Finish-65;
-   
-    int Yf=(int)coordinate[3]-48;
-
-    if(Xo==Xf) for(int i=Yo;i<Yf+1;i++) YourField[Xo][i]='C'; //tieni fissa la riga, cambia colonna 
+    if(Xi==Xf)for(int i=Yi;i<Yf+1;i++) YourField[Xi][i]='C'; //tieni fissa la riga, cambia colonna 
     else 
-    for(int i=Xo;i<Xf+1;i++) YourField[i][Yo]='C'; 
+    for(int i=Xi;i<Xf+1;i++) YourField[i][Yi]='C'; 
 }
-*/
 
-/*
-    shorturl.at/nBZ16
-    std::cout << "Enter text \n";
-    std::string text{};
-    getline(std::cin, text);
-    int sum{};
-    for (auto& elem : text)
-    {
-        if(isalpha(elem))
-        {
-            elem = toupper(elem);
-            sum += static_cast<int>(elem - 'A' + 1);
-        }
-    }
-    std::cout << sum << "\n";
-}
-*/
+
+// MAIN
+int main()
+{
+    printGrigliaVuota(LINE,COL);
+    string coordinata;
+
+    // Creiamo gli oggetti ship
+    ShipCorazzata naveDaBattaglia;
+    ShipSupporto naveDiSupporto;
+    ShipSottomarino sottomarino;
+
+    //stampo gli indici delle colonne numerate
+    /*
+        >> Quali sono le coordinate per la corazzata 1:
+        >> B6 B10
+    */
+   
+   for(int i=0;i<1;i++)
+   {
+    cout<<"Inserisci le coordinate della "<<i+1<<" corazzata\n";
+    getline(std::cin, coordinata);
+    //stringstream ss(coordinata);
+    ConvertStringToInt(coordinata);
+   }
+    Griglia(LINE,COL);
+    return 0;
+} 
