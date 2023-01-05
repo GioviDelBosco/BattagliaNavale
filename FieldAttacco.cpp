@@ -7,16 +7,18 @@ using namespace std;
 
 FieldAttacco::FieldAttacco()
 {
-    AttackField[COL][LINE];
+    attackField[12][12];
 }
 
-void stampaCampoAttacco(int line, int col, char AttackField[COL][LINE])
+// non capisco int line e int col
+// sono inutili passati al metodo
+void stampaCampoAttacco(char attackField[12][12])
 {
-    for (int i = 1; i <= COL; i++)
+    for (int i = 1; i <= 12; i++)
     {
-        for (int j = 1; j <= LINE; j++)
+        for (int j = 1; j <= 12; j++)
         {
-            cout << "|   " << AttackField[i][j] << "\t";
+            cout << "|   " << attackField[i][j] << "\t";
         }
         cout << endl;
     }
@@ -66,7 +68,7 @@ void printGrigliaVuotaAttacco(int LINE, int COL)
     cout << "\n";
 }
 
-void ConvertStringToInt(string coordinata, char AttackField[12][12])
+void convertStringToInt(string coordinata, char attackField[12][12])
 {
     stringstream ss(coordinata);
     // creo le 2 variabili per il posizionamneto della barca
@@ -100,8 +102,8 @@ void ConvertStringToInt(string coordinata, char AttackField[12][12])
     }
     if (Xi == Xf)
         for (int i = Yi; i < Yf + 1; i++)
-            AttackField[Xi][i] = 'C'; // tieni fissa la riga, cambia colonna
+            attackField[Xi][i] = 'C'; // tieni fissa la riga, cambia colonna
     else
         for (int i = Xi; i < Xf + 1; i++)
-            AttackField[i][Yi] = 'C';
+            attackField[i][Yi] = 'C';
 }

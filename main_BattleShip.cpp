@@ -14,11 +14,17 @@ using namespace std;
 
 int main()
 {
-    char AttackField[12][12];
+    // questo deve essere un array di puntatori se avete usato i puntatoris
+    char attackField[COL][LINE];
     FieldAttacco atkField;
     FieldDifesa defField;
 
-    atkField.StampaCampoAttacco(LINE, COL, &AttackField[12][12]);
+    // qua sbagliavate a passare la dimensione dell array, basta il nome della variabile
+    // comunque mi sembra inutile fare un array di puntatori quindi eviterei
+    //l'array di puntatori inchesenso? cancello il * in char? okz dappertutto, quindi tolgo tutti i puntatori nell'array
+    // sono inutili, non ti serve avere un array di puntatori
+    //comunque non mettere piu' le dimensioni ad attackfield quando lo passi a una funzione
+    atkField.stampaCampoAttacco(attackField);
     string coordinata;
 
     // Creiamo gli oggetti ship

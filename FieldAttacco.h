@@ -7,20 +7,21 @@
 
 using namespace std;
 
-const int COL=12;
-const int LINE=12;
+const int COL = 12;
+const int LINE = 12;
 
 class FieldAttacco
 {
 
 public:
-    FieldAttacco();
-    void StampaCampoAttacco(int line, int column, char& AttackField[COL][LINE]);
+    FieldAttacco(); 
+
+    void stampaCampoAttacco(char attackField[12][12]);
     void printGrigliaVuotaAttacco(int line, int column);
-    void ConvertStringToInt(string coordinata,char& AttackField[COL][LINE]);
+    void convertStringToInt(string coordinata, char attackField[COL][LINE]);
 
 private:
-    char *AttackField[COL][LINE];
+    char attackField[COL][LINE];
 };
 
 #endif
