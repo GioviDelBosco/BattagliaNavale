@@ -16,9 +16,9 @@ class FieldAttacco
 public:
     FieldAttacco(); 
 
-    void stampaCampoAttacco(char attackField[12][12]);
+    void stampaCampoAttacco(char (&attackField)[COL][LINE]);
     void printGrigliaVuotaAttacco(int line, int column);
-    void convertStringToInt(string coordinata, char attackField[COL][LINE]);
+    void convertStringToInt(string coordinata, char (&attackField)[12][12]);
 
 private:
     char attackField[COL][LINE];

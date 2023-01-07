@@ -13,20 +13,48 @@ FieldAttacco::FieldAttacco()
 // non capisco int line e int col
 // sono inutili passati al metodo
 
-    void FieldAttacco::stampaCampoAttacco(char attackField[12][12])
+void FieldAttacco::stampaCampoAttacco(char (&attackField)[12][12])
+{
+
+    cout << "\t";
+    for (int col = 0; col < COL; col++)
     {
-        for (int i = 1; i <= LINE; i++)
+        cout << col + 1 << "\t";
+    }
+    cout << endl;
+    // stampa righe senza J,K
+
+    for (int i = 0; i < LINE; i++)
+    {
+        if (i == 9)
         {
-            for (int j = 1; j <= COL; j++)
-            {
-                cout << "|   " << attackField[i][j] << "\t";
-            }
-            cout << endl;
+            char NoJ = (char)(i + 67);
+            cout << NoJ << "\t";
+        }
+        else if (i == 10)
+        {
+            char NoK = (char)(i + 67);
+            cout << NoK << "\t";
+        }
+        else if (i == 11)
+        {
+            char JumpL = (char)(i + 67);
+            cout << JumpL << "\t";
+        }
+        else
+        {
+            char IndexLine = (char)(i + 65);
+            cout << IndexLine << "\t";
+        }
+
+        for (int c = 0; c < COL; c++)
+        {
+            cout << attackField[i][c]<< "   |   ";
         }
         cout << endl;
     }
-
-
+    cout << "\n";
+}
 
 void FieldAttacco::printGrigliaVuotaAttacco(int LINE, int COL)
 {
@@ -69,10 +97,9 @@ void FieldAttacco::printGrigliaVuotaAttacco(int LINE, int COL)
         cout << endl;
     }
     cout << "\n";
-    
 }
 
-void FieldAttacco::convertStringToInt(string coordinata, char attackField[12][12])
+void FieldAttacco::convertStringToInt(string coordinata, char (&attackField)[12][12])
 {
     stringstream ss(coordinata);
     // creo le 2 variabili per il posizionamneto della barca
@@ -84,15 +111,15 @@ void FieldAttacco::convertStringToInt(string coordinata, char attackField[12][12
     string Xe = coordinateXYf.substr(0, 1);
     string Ye = coordinateXYf.substr(1, coordinateXYf.length() - 1);
     int Xi;
-    int Yi = stoi(Yo);
+    int Yi = stoi(Yo)-1;
     int Xf;
-    int Yf = stoi(Ye);
+    int Yf = stoi(Ye)-1;
     for (auto &elem : Xo)
     {
         if (isalpha(elem))
         {
             elem = toupper(elem);
-            Xi += static_cast<int>(elem - 'A'); // DA CAPIRE PERCHé SENZA IL +1
+            Xi += static_cast<int>(elem - 'A' +1)-1; 
         }
     }
 
@@ -101,7 +128,7 @@ void FieldAttacco::convertStringToInt(string coordinata, char attackField[12][12
         if (isalpha(elem))
         {
             elem = toupper(elem);
-            Xf += static_cast<int>(elem - 'A' + 1);
+            Xf += static_cast<int>(elem - 'A')-1;
         }
     }
     if (Xi == Xf)
