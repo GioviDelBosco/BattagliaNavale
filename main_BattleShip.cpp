@@ -56,9 +56,9 @@ int main()
         getline(std::cin, coordinata);
         atkField.convertStringToInt(coordinata,attackField);
     }
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 1; i++)
     {
-        cout << "Inserisci le coordinate della " << i + 1 << " corazzata\n";
+        cout << "Inserisci le coordinate del " << i + 1 << " sottomarino\n";
         getline(std::cin, coordinata);
         atkField.convertStringToInt(coordinata,attackField);
     }
