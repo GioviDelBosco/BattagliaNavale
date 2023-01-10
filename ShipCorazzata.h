@@ -11,7 +11,6 @@ class ShipCorazzata{
     public:
         ShipCorazzata();
         void fuoco();
-        void inserisciCorazzata();
 
     private:
         int dimensione;

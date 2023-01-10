@@ -15,12 +15,12 @@ using namespace std;
 int main()
 {
     // questo deve essere un array di puntatori se avete usato i puntatoris
-    char attackField[LINE][COL];
-    for (int i = 0; i <= LINE; i++)
+    char defendeField[LINEdef][COLdef];
+    for (int i = 0; i <= LINEdef; i++)
     {
-        for (int c = 0; c <= COL; c++)
+        for (int c = 0; c <= COLdef; c++)
         {
-            attackField[i][c] = ' ';
+            defendeField[i][c] = ' ';
         }
         
     }
@@ -29,8 +29,18 @@ int main()
     FieldDifesa defField;
 
     //stampiamo la griglia d'attacco
-    atkField.printGrigliaVuotaAttacco(LINE,COL);
+    cout<<"Inserisci il comando speciale XX XX per visualizzare le griglie\n";
+    string stampaCampi;
+    getline(std::cin, stampaCampi);
+    if(stampaCampi=="XX XX"){
 
+        defField.printGrigliaVuotaDifesa(LINEdef,COLdef);
+        atkField.printGrigliaVuotaAttacco(LINEatk,COLatk);
+    }
+    else{
+        cout<<"comando errato\n";
+    }
+    
     string coordinata;
 
     // Creiamo gli oggetti ship
@@ -38,31 +48,16 @@ int main()
     ShipSupporto naveDiSupporto;
     ShipSottomarino sottomarino;
 
-    // stampo gli indici delle colonne numerate
-    /*
-        >> Quali sono le coordinate per la corazzata 1:
-        >> B6 B10
-    */
-   
-    for (int i = 0; i < 2; i++)
+    //inserisco una barca
+    for (int i = 0; i < 1; i++)
     {
         cout << "Inserisci le coordinate della " << i + 1 << " corazzata\n";
         getline(std::cin, coordinata);
-        atkField.convertStringToInt(coordinata,attackField);
+        defField.convertStringToInt(coordinata,defendeField);
     }
-    for (int i = 0; i < 2; i++)
-    {
-        cout << "Inserisci le coordinate della " << i + 1 << " nave di supporto\n";
-        getline(std::cin, coordinata);
-        atkField.convertStringToInt(coordinata,attackField);
-    }
-    for (int i = 0; i < 1; i++)
-    {
-        cout << "Inserisci le coordinate del " << i + 1 << " sottomarino\n";
-        getline(std::cin, coordinata);
-        atkField.convertStringToInt(coordinata,attackField);
-    }
-    atkField.stampaCampoAttacco(attackField);
+    
+    defField.stampaCampoDifesa(defendeField);
+   string StampaCampi;
     
    
    
