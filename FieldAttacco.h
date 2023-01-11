@@ -16,12 +16,12 @@ class FieldAttacco
 public:
     FieldAttacco(); 
 
-    void stampaCampoAttacco(char (&attackField)[LINEatk][COLatk]);
+    void stampaCampoAttacco(char (&attackFieldPlayer)[LINEatk][COLatk]);
     void printGrigliaVuotaAttacco(int line, int column);
-    void convertStringToInt(string coordinata, char (&attackField)[12][12]);
+    void convertStringToInt(string coordinata, char (&attackFieldPlayer)[12][12]);
 
 private:
-    char attackField[LINEatk][COLatk];
+    char attackFieldPlayer[LINEatk][COLatk];
 };
 
 #endif

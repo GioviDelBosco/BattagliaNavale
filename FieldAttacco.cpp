@@ -7,7 +7,7 @@ using namespace std;
 
 FieldAttacco::FieldAttacco()
 {
-    attackField[12][12];
+    attackFieldPlayer[12][12];
 }
 void FieldAttacco::printGrigliaVuotaAttacco(int LINE, int COL)
 {
@@ -52,7 +52,7 @@ void FieldAttacco::printGrigliaVuotaAttacco(int LINE, int COL)
     }
     cout << "\n";
 }
-void FieldAttacco::stampaCampoAttacco(char (&attackField)[12][12])
+void FieldAttacco::stampaCampoAttacco(char (&attackFieldPlayer)[12][12])
 {
     cout << "Campo Attacco" << endl;
     cout << "\t";
@@ -88,7 +88,7 @@ void FieldAttacco::stampaCampoAttacco(char (&attackField)[12][12])
 
         for (int c = 0; c < COLatk; c++)
         {
-            cout << attackField[i][c] << "   |   ";
+            cout << attackFieldPlayer[i][c] << "   |   ";
         }
         cout << endl;
     }

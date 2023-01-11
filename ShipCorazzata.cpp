@@ -15,7 +15,7 @@ ShipCorazzata::ShipCorazzata(){
     (tutte le caselle in cui l’unità è presente sono state colpite), l’unità bersaglio viene
     affondata
 */
-void fuoco(string coordinata, char (&attackField)[12][12]){
+void fuoco(string coordinata, char (&attackFieldPlayer)[12][12]){
     
 }
 

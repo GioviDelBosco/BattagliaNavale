@@ -16,12 +16,12 @@ class FieldDifesa
 public:
     FieldDifesa(); 
 
-    void stampaCampoDifesa(char (&defendeField)[LINEdef][COLdef]);
+    void stampaCampoDifesa(char (&defenceFieldPlayer)[LINEdef][COLdef]);
     void printGrigliaVuotaDifesa(int line, int column);
-    void convertStringToInt(string coordinata, char (&defendeField)[12][12]);
+    void convertStringToInt(string coordinata,int flag, char (&defenceFieldPlayer)[12][12]);
 
 private:
-    char defendeField[LINEdef][COLdef];
+    char defenceFieldPlayer[LINEdef][COLdef];
 };
 
 #endif

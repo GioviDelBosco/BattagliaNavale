@@ -15,12 +15,12 @@ using namespace std;
 int main()
 {
     // questo deve essere un array di puntatori se avete usato i puntatoris
-    char defendeField[LINEdef][COLdef];
+    char defenceFieldPlaye[LINEdef][COLdef];
     for (int i = 0; i <= LINEdef; i++)
     {
         for (int c = 0; c <= COLdef; c++)
         {
-            defendeField[i][c] = ' ';
+            defenceFieldPlaye[i][c] = ' ';
         }
         
     }
@@ -41,6 +41,7 @@ int main()
         cout<<"comando errato\n";
     }
     
+    int flag=0;
     string coordinata;
 
     // Creiamo gli oggetti ship
@@ -49,20 +50,30 @@ int main()
     ShipSottomarino sottomarino;
 
     //inserisco una barca
+    for (int i = 0; i < 2; i++)
+    {
+        cout << "Inserisci le coordinate della " << i + 1 << " navecorazzata\n";
+        getline(std::cin, coordinata);
+        defField.convertStringToInt(coordinata,flag,defenceFieldPlaye);
+    }
+
+    for (int i = 0; i < 2; i++)
+    {
+        flag=1;
+        cout << "Inserisci le coordinate della " << i + 1 << " nave supporto\n";
+        getline(std::cin, coordinata);
+        defField.convertStringToInt(coordinata,flag,defenceFieldPlaye);
+    }
+
     for (int i = 0; i < 1; i++)
     {
-        cout << "Inserisci le coordinate della " << i + 1 << " corazzata\n";
+        flag=2;
+        cout << "Inserisci le coordinate del " << i + 1 << " sottomarino\n";
         getline(std::cin, coordinata);
-        defField.convertStringToInt(coordinata,defendeField);
+        defField.convertStringToInt(coordinata,flag,defenceFieldPlaye);
     }
     
-    defField.stampaCampoDifesa(defendeField);
-   string StampaCampi;
     
-   
-   
-   
-   
-    
+    defField.stampaCampoDifesa(defenceFieldPlaye);
     return 0;
 }
