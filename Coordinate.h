@@ -13,7 +13,7 @@ class Coordinate
 
 public:
     Coordinate();
-    static tuple<int,int,int,int> convertStringToInt(string coordinata);
+    static vector<int> convertStringToInt(string coordinata);
 
 private:
     

@@ -81,21 +81,21 @@ int main()
     case 1:
     */
 
-    for (int i = 0; i < 1; i++)
+    for (int i = 0; i < 3; i++)
     {
         cout << "Inserisci le coordinate della " << i + 1 << " nave corazzata\n";
         getline(std::cin, coordinataPlayer1);
         azione.piazzaBarca(flag, defenceFieldPlayer, coordinataPlayer1);
     }
 
-    for (int i = 0; i < 1; i++)
+    for (int i = 0; i < 3; i++)
     {
         flag = 1;
         cout << "Inserisci le coordinate della " << i + 1 << " nave supporto\n";
         getline(std::cin, coordinataPlayer1);
         azione.piazzaBarca(flag, defenceFieldPlayer, coordinataPlayer1);
     }
-    for (int i = 0; i < 1; i++)
+    for (int i = 0; i < 2; i++)
     {
         flag = 2;
         cout << "Inserisci le coordinate del " << i + 1 << " sottomarino\n";
@@ -104,29 +104,6 @@ int main()
     }
     cout << "\n";
     defField.stampaCampoDifesa(defenceFieldPlayer);
-    // break;
-    /*
-    // Posizionamento Computer
-     case 2:
-     // corazzata
-     for (int i = 0; i < 3; i++)
-     {
-         coordinataPlayer2 = "";
-     }
-     // supporto
-     for (int i = 0; i < 3; i++)
-     {
-         coordinataPlayer2 = "";
-     }
-     // sottomarino
-     for (int i = 0; i < 1; i++)
-     {
-
-         coordinataPlayer2 = "";
-     }
- }
-
-    */
 
     while (stato == 1)
     {

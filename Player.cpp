@@ -12,66 +12,64 @@ Player::Player(){
 }
 //tolgo le coordinate e uso un vettore
 void Player::piazzaBarca(int flag, char (&defenceFieldPlayer)[12][12], string coordinata){
-    int Xi,Yi,Xf,Yf;
-    tie(Xi,Yi,Xf,Yf)=Coordinate::convertStringToInt(coordinata);
-
-
+        vector<int> listacoordinate = Coordinate::convertStringToInt(coordinata);
+    
     switch (flag)
     {
 
     // corazzata
     case 0:
         // se le Y nella mappa sono le stesse, scrive solo nelle X
-        if (Yi == Yf)
+        if (listacoordinate[1] == listacoordinate[3])
         {
-            for (int i = Xi; i <= Xf; i++)
+            for (int i = listacoordinate[0]; i <= listacoordinate[2]; i++)
             {
-                defenceFieldPlayer[i][Yi] = 'C';
+                defenceFieldPlayer[i][listacoordinate[1]] = 'C';
             }
         }
         // se le X nella mappa sono le stesse, scrive solo nelle Y
-        if (Xi == Xf)
+        if (listacoordinate[0] == listacoordinate[2])
         {
-            for (int i = Yi; i <= Yf; i++)
+            for (int i = listacoordinate[1]; i <= listacoordinate[3]; i++)
             {
-                defenceFieldPlayer[Xi][i] = 'C';
+                defenceFieldPlayer[listacoordinate[0]][i] = 'C';
             }
         }
         break;
     // supporto
     case 1:
         // se le Y nella mappa sono le stesse, scrive solo nelle X
-        if (Yi == Yf)
+        if (listacoordinate[1] == listacoordinate[3])
         {
-            for (int i = Xi; i <= Xf; i++)
+            for (int i = listacoordinate[0]; i <= listacoordinate[2]; i++)
             {
-                defenceFieldPlayer[i][Yi] = 'S';
+                defenceFieldPlayer[i][listacoordinate[1]] = 'S';
             }
         }
         // se le X nella mappa sono le stesse, scrive solo nelle Y
-        if (Xi == Xf)
+        if (listacoordinate[0] == listacoordinate[2])
         {
-            for (int i = Yi; i <= Yf; i++)
+            for (int i = listacoordinate[1]; i <= listacoordinate[3]; i++)
             {
-                defenceFieldPlayer[Xi][i] = 'S';
+                defenceFieldPlayer[listacoordinate[0]][i] = 'S';
             }
         }
         break;
     // sottomarino
     case 2:
-        if (Yi == Yf)
+        if (listacoordinate[1] == listacoordinate[3])
         {
-            for (int i = Xi; i <= Xf; i++)
+            for (int i = listacoordinate[0]; i <= listacoordinate[2]; i++)
             {
-                defenceFieldPlayer[i][Yi] = 'E';
+                defenceFieldPlayer[i][listacoordinate[1]] = 'E';
             }
         }
         // se le X nella mappa sono le stesse, scrive solo nelle Y
-        if (Xi == Xf)
+        if (listacoordinate[0] == listacoordinate[2])
         {
-            for (int i = Yi; i <= Yf; i++)
+            for (int i = listacoordinate[1]; i <= listacoordinate[3]; i++)
             {
-                defenceFieldPlayer[Xi][i] = 'E';
+                defenceFieldPlayer[listacoordinate[0]][i] = 'E';
             }
         }
         break;

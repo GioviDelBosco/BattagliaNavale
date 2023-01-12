@@ -11,7 +11,8 @@ Coordinate::Coordinate(){
 
 }
 
-tuple<int,int,int,int> Coordinate::convertStringToInt(string coordinata){
+vector<int> Coordinate::convertStringToInt(string coordinata){
+    vector<int> coordinatine;
     stringstream ss(coordinata);
     // creo le 2 variabili per il posizionamneto della barca
     string coordinateXYi, coordinateXYf;
@@ -23,9 +24,9 @@ tuple<int,int,int,int> Coordinate::convertStringToInt(string coordinata){
 
     
 
-    int Xi;
+    int Xi=0;
     int Yi = stoi(Yo) - 1;
-    int Xf;
+    int Xf=0;
     int Yf = stoi(Ye) - 1;
 
 
@@ -39,7 +40,7 @@ tuple<int,int,int,int> Coordinate::convertStringToInt(string coordinata){
             Xi = Xi - 2;
         }
     }
-
+    
     char elem2 = Xe.at(0);
     {
         if (isalpha(elem2))
@@ -52,8 +53,13 @@ tuple<int,int,int,int> Coordinate::convertStringToInt(string coordinata){
             }
         }
     }
-    
-    return make_tuple(Xi,Yi,Xf,Yf);
+
+    coordinatine.push_back(Xi);
+    coordinatine.push_back(Yi);
+    coordinatine.push_back(Xf);
+    coordinatine.push_back(Yf);   
+
+    return coordinatine;
 }
 //creo un vettore di int
 //vector<int> cacapupu = convertStringToInt(coordinata)
