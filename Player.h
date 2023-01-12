@@ -10,7 +10,7 @@ class Player{
     public:
         Player();
         //provare  a fare piu "piazza barca" per ogni barca // vedere di semplificarne con uno
-        void piazzaBarca();
+        void piazzaBarca(int flag, char (&defenceFieldPlayer)[12][12], string coordinata);
         void muoviBarca();
         void usaBarca();
 

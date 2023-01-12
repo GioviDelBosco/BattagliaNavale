@@ -6,11 +6,8 @@
 #include <iostream>
 
 using namespace std;
-namespace Ship
-{
-    class Ship;
-}
-class Ship::Ship
+
+class Ship
 {
 public:
     Ship();

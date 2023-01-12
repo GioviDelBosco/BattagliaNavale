@@ -4,13 +4,14 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include "Player.h"
 
 using namespace std;
 
 const int COLatk = 12;
 const int LINEatk = 12;
 
-class FieldAttacco
+class FieldAttacco : public Player
 {
 
 public:

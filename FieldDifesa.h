@@ -4,13 +4,14 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include "Player.h"
 
 using namespace std;
 
 const int COLdef = 12;
 const int LINEdef = 12;
 
-class FieldDifesa
+class FieldDifesa : public Player
 {
 
 public:
@@ -18,7 +19,6 @@ public:
 
     void stampaCampoDifesa(char (&defenceFieldPlayer)[LINEdef][COLdef]);
     void printGrigliaVuotaDifesa(int line, int column);
-    void convertStringToInt(string coordinata,int flag, char (&defenceFieldPlayer)[12][12]);
 
 private:
     char defenceFieldPlayer[LINEdef][COLdef];

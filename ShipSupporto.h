@@ -6,7 +6,7 @@
 
 using namespace std;
 
-class ShipSupporto{
+class ShipSupporto {
     public:
         ShipSupporto();
         void muoviERipara();
