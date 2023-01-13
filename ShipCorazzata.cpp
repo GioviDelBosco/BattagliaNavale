@@ -1,6 +1,8 @@
 #include <string>
 #include <iostream>
+#include<vector>
 #include "ShipCorazzata.h"
+#include "Coordinate.h"
 
 using namespace std;
 
@@ -15,11 +17,17 @@ ShipCorazzata::ShipCorazzata(){
     (tutte le caselle in cui l’unità è presente sono state colpite), l’unità bersaglio viene
     affondata
 */
-void fuoco(int coordinateX,int coordinateY, char (&attackFieldPlayer)[12][12], char (&defenceFieldCPU)[12][12]){
+void fuoco(char (&attackFieldPlayer)[12][12], char (&defenceFieldCPU)[12][12],string coordinata){
+    
+    vector<int> listaCoordinate = Coordinate::convertStringToInt(coordinata); 
+    int coordinateY = listaCoordinate.pop_back();
+    int coordinateX = listaCoordinate.pop_back();
+
+    
     if(defenceFieldCPU[coordinateX][coordinateY]!=' '){
         attackFieldPlayer[coordinateX][coordinateY]='X';
-    }
-    
-    
+    }else if(defenceFieldCPU[coordinateX][coordinateY]==' '){
+        attackFieldPlayer[coordinateX][coordinateY]='O';
+    } 
 }
 

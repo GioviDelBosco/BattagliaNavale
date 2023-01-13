@@ -10,7 +10,7 @@ class ShipCorazzata{
     
     public:
         ShipCorazzata();
-        void fuoco(int coordinateX,int coordinateY, char (&attackFieldPlayer)[12][12], char (&defenceFieldCPU)[12][12]);
+        void fuoco(string comando, char (&attackFieldPlayer)[12][12], char (&defenceFieldCPU)[12][12]);
 
     private:
         int dimensione;

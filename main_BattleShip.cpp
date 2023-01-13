@@ -10,6 +10,9 @@
 #include "FieldDifesa.h"
 #include "Coordinate.h"
 #include "Player.h"
+#include "Cpu.h"
+#include <time.h>
+
 
 using namespace std;
 
@@ -19,12 +22,17 @@ int main()
     char defenceFieldPlayer[LINEdef][COLdef];
     char attackFieldPlayer[LINEatk][COLatk];
 
+    char defenceFieldComputer[LINEdef][COLdef];
+    char attackFieldComputer[LINEatk][COLatk];
+
     for (int i = 0; i <= LINEdef; i++)
     {
         for (int c = 0; c <= COLdef; c++)
         {
             defenceFieldPlayer[i][c] = ' ';
             attackFieldPlayer[i][c] = ' ';
+            defenceFieldComputer[i][c] = ' ';
+            attackFieldComputer[i][c] = ' ';
         }
     }
 
@@ -36,8 +44,7 @@ int main()
 
     string match, avvio;
     string coordinataPlayer1, coordinataPlayer2;
-    coordinataPlayer2 = "";
-    string comando;
+   
 
     bool stato = 1;
 
@@ -46,6 +53,7 @@ int main()
 
     Coordinate posizione;
     Player azione;
+    Cpu Pc;
 
     cout << "**************************************************************************\n";
     cout << "**                                                                      **\n";
@@ -105,13 +113,37 @@ int main()
     cout << "\n";
     defField.stampaCampoDifesa(defenceFieldPlayer);
 
-    while (stato == 1)
-    {
-        cout << "Inserire comando:                                         XYOrigin  XYTarget                                   XX XX \n";
-        cout << "                                    coordinataPlayer1, coordinataPlayer2 centrale corazzata + Casella arrivo fuoco          Visualizzazione griglie\n";
-        getline(std::cin, comando);
-        // posizione.convertStringToInt(comando);
-        //  naveCorazzata.fuoco(X,Y,attackFieldPlayer,);
-    }
+cout<<"---------------------------------------------------------------\n";
+cout<<"Inserimento random\n";
+
+
+flag = 0;
+
+for(int i=0;i<3;i++){
+    coordinataPlayer2 = Pc.getCoordinateRND(flag);
+    azione.piazzaBarca(flag, defenceFieldComputer, coordinataPlayer2);
+    coordinataPlayer2 = "";
+ }
+ flag = 1;
+ for (int i = 0; i < 3; i++){
+    coordinataPlayer2 = Pc.getCoordinateRND(flag);
+    azione.piazzaBarca(flag, defenceFieldComputer, coordinataPlayer2);
+    coordinataPlayer2 = "";
+ }
+ flag=2;
+ for (int i = 0; i < 2; i++){
+    coordinataPlayer2 = Pc.getCoordinateRND(flag);
+    azione.piazzaBarca(flag, defenceFieldComputer, coordinataPlayer2);
+    coordinataPlayer2 = "";
+ }
+defField.stampaCampoDifesa(defenceFieldComputer);
+
+
+//-----------------------FUOCO-----------------------------
+    string comando;
+    getline(std::cin, comando);
+    //B6 B10
+    naveCorazzata.fuoco(comando,attackFieldPlayer,defenceFieldComputer);
+
     return 0;
 }

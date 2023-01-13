@@ -14,6 +14,7 @@ class Coordinate
 public:
     Coordinate();
     static vector<int> convertStringToInt(string coordinata);
+    static vector<int> getCentro(string coordinata);
 
 private:
     
