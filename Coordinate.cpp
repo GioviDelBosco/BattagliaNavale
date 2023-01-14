@@ -64,14 +64,31 @@ vector<int> Coordinate::convertStringToInt(string coordinata)
 // uso o pop back o uso le quadre [0(Xi),1(Yi),2(Xf),3(Yf)]
 // cacapupu[0]
 
-vector<int> Coordinate::getCentro(string coordinata)
+vector<int> Coordinate::getCentro(string coordinata, char (&defenceFieldPlayer)[12][12])
 {
     vector<int> coordinataCentro = Coordinate::convertStringToInt(coordinata);
     vector<int> coordinataFinale;
-    if (coordinataCentro[0] == coordinataCentro[2])
+    for (int i = 0; i < 2; i++)
     {
-        coordinataFinale.push_back(coordinataCentro[0]);
-        coordinataFinale.push_back(((coordinataCentro[1] + coordinataCentro[3]) / 2));
-        return coordinataFinale;
+        if (defenceFieldPlayer[coordinataCentro.at(0)][coordinataCentro.at(1)] == defenceFieldPlayer[(coordinataCentro.at(0))][coordinataCentro.at(1) + i] && defenceFieldPlayer[coordinataCentro.at(0)][coordinataCentro.at(1)] == defenceFieldPlayer[(coordinataCentro.at(0))][coordinataCentro.at(1) - i])
+        {
+            coordinataFinale.push_back(coordinataCentro.at(0));
+            coordinataFinale.push_back((coordinataCentro[1] + coordinataCentro[1+i]) / 2);
+            return coordinataFinale;
+        }else{
+            cout <<"Inserisci il centro della nave con cui vuoi fare fuoco";
+        }
+    }
+
+    for (int i = 0; i < 2; i++)
+    {
+        if (defenceFieldPlayer[coordinataCentro.at(0)][coordinataCentro.at(1)] == defenceFieldPlayer[(coordinataCentro.at(0)+i)][coordinataCentro.at(1)] && defenceFieldPlayer[coordinataCentro.at(0)][coordinataCentro.at(1)] == defenceFieldPlayer[(coordinataCentro.at(0)-i)][coordinataCentro.at(1)])
+        {
+            coordinataFinale.push_back((coordinataCentro[0] + coordinataCentro[0+i]) / 2);
+            coordinataFinale.push_back(coordinataCentro.at(1));
+            return coordinataFinale;
+        }else{
+            cout <<"Inserisci il centro della nave con cui vuoi fare fuoco";
+        }
     }
 }

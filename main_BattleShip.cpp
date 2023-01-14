@@ -89,21 +89,21 @@ int main()
     case 1:
     */
 
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 1; i++)
     {
         cout << "Inserisci le coordinate della " << i + 1 << " nave corazzata\n";
         getline(std::cin, coordinataPlayer1);
         azione.piazzaBarca(flag, defenceFieldPlayer, coordinataPlayer1);
     }
 
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 1; i++)
     {
         flag = 1;
         cout << "Inserisci le coordinate della " << i + 1 << " nave supporto\n";
         getline(std::cin, coordinataPlayer1);
         azione.piazzaBarca(flag, defenceFieldPlayer, coordinataPlayer1);
     }
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 1; i++)
     {
         flag = 2;
         cout << "Inserisci le coordinate del " << i + 1 << " sottomarino\n";
@@ -120,30 +120,31 @@ cout<<"Inserimento random\n";
 flag = 0;
 
 for(int i=0;i<3;i++){
-    coordinataPlayer2 = Pc.getCoordinateRND(flag);
+    coordinataPlayer2 = Pc.getCoordinateRND(flag, defenceFieldComputer);
     azione.piazzaBarca(flag, defenceFieldComputer, coordinataPlayer2);
     coordinataPlayer2 = "";
  }
- flag = 1;
+ /*flag = 1;
  for (int i = 0; i < 3; i++){
-    coordinataPlayer2 = Pc.getCoordinateRND(flag);
+    coordinataPlayer2 = Pc.getCoordinateRND(flag, defenceFieldComputer);
     azione.piazzaBarca(flag, defenceFieldComputer, coordinataPlayer2);
     coordinataPlayer2 = "";
  }
  flag=2;
  for (int i = 0; i < 2; i++){
-    coordinataPlayer2 = Pc.getCoordinateRND(flag);
+    coordinataPlayer2 = Pc.getCoordinateRND(flag,defenceFieldComputer);
     azione.piazzaBarca(flag, defenceFieldComputer, coordinataPlayer2);
     coordinataPlayer2 = "";
- }
+ }*/
 defField.stampaCampoDifesa(defenceFieldComputer);
 
-
+cout << "Dove vuoi fare fuoco?"<< endl;
 //-----------------------FUOCO-----------------------------
     string comando;
     getline(std::cin, comando);
     //B6 B10
-    naveCorazzata.fuoco(comando,attackFieldPlayer,defenceFieldComputer);
+    naveCorazzata.fuoco(comando,attackFieldPlayer,defenceFieldComputer,defenceFieldPlayer);
+    atkField.stampaCampoAttacco(attackFieldPlayer);
 
     return 0;
 }
