@@ -68,27 +68,37 @@ vector<int> Coordinate::getCentro(string coordinata, char (&defenceFieldPlayer)[
 {
     vector<int> coordinataCentro = Coordinate::convertStringToInt(coordinata);
     vector<int> coordinataFinale;
-    for (int i = 0; i < 2; i++)
+    // se la corazzata e' messa in orizzontale
+    if (defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]][(coordinataCentro[1]) + 1] 
+     && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1] + 2] 
+     && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1] - 1] 
+     && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1] - 2])
     {
-        if (defenceFieldPlayer[coordinataCentro.at(0)][coordinataCentro.at(1)] == defenceFieldPlayer[(coordinataCentro.at(0))][coordinataCentro.at(1) + i] && defenceFieldPlayer[coordinataCentro.at(0)][coordinataCentro.at(1)] == defenceFieldPlayer[(coordinataCentro.at(0))][coordinataCentro.at(1) - i])
-        {
-            coordinataFinale.push_back(coordinataCentro.at(0));
-            coordinataFinale.push_back((coordinataCentro[1] + coordinataCentro[1+i]) / 2);
-            return coordinataFinale;
-        }else{
-            cout <<"Inserisci il centro della nave con cui vuoi fare fuoco";
-        }
+
+        coordinataFinale.push_back(coordinataCentro[0]);
+        coordinataFinale.push_back(coordinataCentro[1]);
+        return coordinataFinale;
+    }
+    else
+    {
+        cout << "Non hai inserito il centro" << endl;
     }
 
-    for (int i = 0; i < 2; i++)
+    //BARCA MESSA IN VERTICALE
+    if (defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]+1][coordinataCentro[1]] 
+     && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]+2][coordinataCentro[1]] 
+     && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]-1][coordinataCentro[1]] 
+     && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]-2][coordinataCentro[1]])
     {
-        if (defenceFieldPlayer[coordinataCentro.at(0)][coordinataCentro.at(1)] == defenceFieldPlayer[(coordinataCentro.at(0)+i)][coordinataCentro.at(1)] && defenceFieldPlayer[coordinataCentro.at(0)][coordinataCentro.at(1)] == defenceFieldPlayer[(coordinataCentro.at(0)-i)][coordinataCentro.at(1)])
-        {
-            coordinataFinale.push_back((coordinataCentro[0] + coordinataCentro[0+i]) / 2);
-            coordinataFinale.push_back(coordinataCentro.at(1));
-            return coordinataFinale;
-        }else{
-            cout <<"Inserisci il centro della nave con cui vuoi fare fuoco";
-        }
+
+        coordinataFinale.push_back(coordinataCentro[0]);
+        coordinataFinale.push_back(coordinataCentro[1]);
+        return coordinataFinale;
     }
+    else
+    {
+        cout << "Non hai inserito il centro" << endl;
+    }
+
+    //da rivedere un attimo perche' esegue tutti e due gli else in caso di barca verticale
 }
