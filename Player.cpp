@@ -1,19 +1,20 @@
-#include<iostream>
-#include<string>
-#include<vector>
-#include<tuple>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <tuple>
 #include "Player.h"
 #include "Coordinate.h"
 
 using namespace std;
 
-Player::Player(){
-
+Player::Player()
+{
 }
-//tolgo le coordinate e uso un vettore
-void Player::piazzaBarca(int flag, char (&defenceFieldPlayer)[12][12], string coordinata){
-        vector<int> listacoordinate = Coordinate::convertStringToInt(coordinata);
-    
+// tolgo le coordinate e uso un vettore
+void Player::piazzaBarca(int flag, char (&defenceFieldPlayer)[12][12], string coordinata)
+{
+    vector<int> listacoordinate = Coordinate::convertStringToInt(coordinata);
+
     switch (flag)
     {
 
@@ -74,11 +75,51 @@ void Player::piazzaBarca(int flag, char (&defenceFieldPlayer)[12][12], string co
         }
         break;
     }
-
 }
-void Player::muoviBarca(){
-    
+void Player::muoviBarca(char (&defenceFieldPlayer)[12][12], string coordinata)
+{
+    vector<int> coordinataCentroBarca = Coordinate::getCentro(coordinata, defenceFieldPlayer);
+    vector<int> posizioneArrivo = Coordinate::convertStringToInt(coordinata);
+    // se sono nella stessa riga
+    if (coordinataCentroBarca[0] == posizioneArrivo[2])
+    {
+        // se mi sposto verso destra
+        if (coordinataCentroBarca[1] < posizioneArrivo[3])
+        {
+            for (int i = coordinataCentroBarca[1]; i <= posizioneArrivo[3]; i++)
+            {
+                if (posizioneArrivo[3] < 12)
+                {
+                    defenceFieldPlayer[0][i + 1] = 'S';
+                    defenceFieldPlayer[0][i] = 'S';
+                    defenceFieldPlayer[0][i - 1] = 'S';
+                    defenceFieldPlayer[0][i - 2] = ' ';
+                }
+                else
+                {
+                    cout << "Non puoi spostare la barca in quella posizione" << endl;
+                }
+            }
+        //se mi sposto verso sinistra
+        }else if(coordinataCentroBarca[1] > posizioneArrivo[3]){
+            for (int i = coordinataCentroBarca[1]; i >= posizioneArrivo[3]; i--)
+            {
+                if (posizioneArrivo[3] > 0)
+                {
+                    defenceFieldPlayer[0][i + 1] = 'S';
+                    defenceFieldPlayer[0][i] = 'S';
+                    defenceFieldPlayer[0][i - 1] = 'S';
+                    defenceFieldPlayer[0][i + 2] = ' ';
+                }
+                else
+                {
+                    cout << "Non puoi spostare la barca in quella posizione" << endl;
+                }
+            }
+            
+        }
+    }
 }
-void Player::usaBarca(){
-    
+void Player::usaBarca()
+{
 }

@@ -2,6 +2,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <stdexcept>
 #include <tuple>
 #include "Coordinate.h"
 
@@ -24,31 +25,30 @@ vector<int> Coordinate::convertStringToInt(string coordinata)
     string Ye = coordinateXYf.substr(1, coordinateXYf.length() - 1);
 
     int Xi = 0;
-    int Yi = stoi(Yo) - 1;
+    int Yi = stoi(Yo)-1 ;
     int Xf = 0;
-    int Yf = stoi(Ye) - 1;
+    int Yf = stoi(Ye) -1;
 
     char elem = Xo.at(0);
     if (isalpha(elem))
     {
         elem = toupper(elem);
         Xi += static_cast<int>(elem - 'A' + 1) - 1;
-        if (Xi >= 10)
+        if (Xi > 8)
         {
             Xi = Xi - 2;
         }
     }
 
     char elem2 = Xe.at(0);
+
+    if (isalpha(elem2))
     {
-        if (isalpha(elem2))
+        elem2 = toupper(elem2);
+        Xf += static_cast<int>(elem2 - 'A');
+        if (Xf > 8)
         {
-            elem2 = toupper(elem2);
-            Xf += static_cast<int>(elem2 - 'A');
-            if (Xf >= 10)
-            {
-                Xf = Xf - 2;
-            }
+            Xf = Xf - 2;
         }
     }
 
@@ -56,9 +56,9 @@ vector<int> Coordinate::convertStringToInt(string coordinata)
     coordinatine.push_back(Yi);
     coordinatine.push_back(Xf);
     coordinatine.push_back(Yf);
-
     return coordinatine;
 }
+
 // creo un vettore di int
 // vector<int> cacapupu = convertStringToInt(coordinata)
 // uso o pop back o uso le quadre [0(Xi),1(Yi),2(Xf),3(Yf)]
@@ -69,36 +69,40 @@ vector<int> Coordinate::getCentro(string coordinata, char (&defenceFieldPlayer)[
     vector<int> coordinataCentro = Coordinate::convertStringToInt(coordinata);
     vector<int> coordinataFinale;
     // se la corazzata e' messa in orizzontale
-    if (defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]][(coordinataCentro[1]) + 1] 
-     && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1] + 2] 
-     && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1] - 1] 
-     && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1] - 2])
+    try
     {
+        if (defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == 'C')
+        {
+            if (defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]][(coordinataCentro[1]) + 1] && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1] + 2] && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1] - 1] && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1] - 2]
+                // nave in verticale
+                || (defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0] + 1][coordinataCentro[1]] && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0] + 2][coordinataCentro[1]] && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0] - 1][coordinataCentro[1]] && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0] - 2][coordinataCentro[1]]))
+            {
 
-        coordinataFinale.push_back(coordinataCentro[0]);
-        coordinataFinale.push_back(coordinataCentro[1]);
-        return coordinataFinale;
+                coordinataFinale.push_back(coordinataCentro[0]);
+                coordinataFinale.push_back(coordinataCentro[1]);
+                return coordinataFinale;
+            }
+        }
+        else if (defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == 'S')
+        {
+            if (defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]][(coordinataCentro[1]) + 1] && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1] - 1] || (defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0] + 1][coordinataCentro[1]] && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0] - 1][coordinataCentro[1]]))
+            {
+                coordinataFinale.push_back(coordinataCentro[0]);
+                coordinataFinale.push_back(coordinataCentro[1]);
+                return coordinataFinale;
+            }
+        }
+        else if (defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == 'E')
+        {
+            coordinataFinale.push_back(coordinataCentro[0]);
+            coordinataFinale.push_back(coordinataCentro[1]);
+            return coordinataFinale;
+        }
     }
-    else
+    catch (const exception &e)
     {
-        cout << "Non hai inserito il centro" << endl;
+        cout << "ERRORE: non hai inserito il centro" << endl;
+        throw;
     }
-
-    //BARCA MESSA IN VERTICALE
-    if (defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]+1][coordinataCentro[1]] 
-     && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]+2][coordinataCentro[1]] 
-     && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]-1][coordinataCentro[1]] 
-     && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]-2][coordinataCentro[1]])
-    {
-
-        coordinataFinale.push_back(coordinataCentro[0]);
-        coordinataFinale.push_back(coordinataCentro[1]);
-        return coordinataFinale;
-    }
-    else
-    {
-        cout << "Non hai inserito il centro" << endl;
-    }
-
-    //da rivedere un attimo perche' esegue tutti e due gli else in caso di barca verticale
 }
+// da rivedere un attimo perche' esegue tutti e due gli else in caso di barca verticale

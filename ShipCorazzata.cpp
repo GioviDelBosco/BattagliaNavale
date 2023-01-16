@@ -1,6 +1,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+
 #include "ShipCorazzata.h"
 #include "Coordinate.h"
 #include "FieldDifesa.h"

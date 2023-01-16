@@ -9,7 +9,7 @@ using namespace std;
 class ShipSupporto {
     public:
         ShipSupporto();
-        void muoviERipara();
+        void muoviERipara(string comando, char (&defenceFieldPlayer)[12][12]);
         void inserisciSupporto();
     private:
         int dimensione;

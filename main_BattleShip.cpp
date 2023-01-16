@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <fstream>
 #include "ShipSupporto.h"
 #include "ShipCorazzata.h"
 #include "ShipSottomarino.h"
@@ -18,6 +19,8 @@ using namespace std;
 
 int main()
 {
+    ofstream fout("replica.txt"); //file scrittura replica partita
+
     // questo deve essere un array di puntatori se avete usato i puntatoris
     char defenceFieldPlayer[LINEdef][COLdef];
     char attackFieldPlayer[LINEatk][COLatk];
@@ -25,9 +28,9 @@ int main()
     char defenceFieldComputer[LINEdef][COLdef];
     char attackFieldComputer[LINEatk][COLatk];
 
-    for (int i = 0; i <= LINEdef; i++)
+    for (int i = 0; i < LINEdef; i++)
     {
-        for (int c = 0; c <= COLdef; c++)
+        for (int c = 0; c < COLdef; c++)
         {
             defenceFieldPlayer[i][c] = ' ';
             attackFieldPlayer[i][c] = ' ';
@@ -88,26 +91,33 @@ int main()
     {
     case 1:
     */
-
+    fout<<"Corazzate:\n";
     for (int i = 0; i < 1; i++)
     {
         cout << "Inserisci le coordinate della " << i + 1 << " nave corazzata\n";
         getline(std::cin, coordinataPlayer1);
+        
+        fout<<coordinataPlayer1<<"\n";
         azione.piazzaBarca(flag, defenceFieldPlayer, coordinataPlayer1);
     }
-
+    fout<<"Supporto:\n";
     for (int i = 0; i < 1; i++)
     {
         flag = 1;
         cout << "Inserisci le coordinate della " << i + 1 << " nave supporto\n";
         getline(std::cin, coordinataPlayer1);
+        
+        fout<<coordinataPlayer1<<"\n";
         azione.piazzaBarca(flag, defenceFieldPlayer, coordinataPlayer1);
     }
+    fout<<"Sottomarino:\n";
     for (int i = 0; i < 1; i++)
     {
         flag = 2;
         cout << "Inserisci le coordinate del " << i + 1 << " sottomarino\n";
         getline(std::cin, coordinataPlayer1);
+        
+        fout<<coordinataPlayer1<<"\n";
         azione.piazzaBarca(flag, defenceFieldPlayer, coordinataPlayer1);
     }
     cout << "\n";
@@ -118,24 +128,24 @@ cout<<"Inserimento random\n";
 
 
 flag = 0;
-
+fout<<"Corazzata nemica:\n";
 for(int i=0;i<3;i++){
+    
     coordinataPlayer2 = Pc.getCoordinateRND(flag, defenceFieldComputer);
-    azione.piazzaBarca(flag, defenceFieldComputer, coordinataPlayer2);
-    coordinataPlayer2 = "";
+    fout<<coordinataPlayer2<<endl;
  }
- /*flag = 1;
+ flag = 1;
+ fout<<"Supporto nemico:\n";
  for (int i = 0; i < 3; i++){
     coordinataPlayer2 = Pc.getCoordinateRND(flag, defenceFieldComputer);
-    azione.piazzaBarca(flag, defenceFieldComputer, coordinataPlayer2);
-    coordinataPlayer2 = "";
+    fout<<coordinataPlayer2<<endl;
  }
  flag=2;
+ fout<<"Sottomarino nemica:\n";
  for (int i = 0; i < 2; i++){
     coordinataPlayer2 = Pc.getCoordinateRND(flag,defenceFieldComputer);
-    azione.piazzaBarca(flag, defenceFieldComputer, coordinataPlayer2);
-    coordinataPlayer2 = "";
- }*/
+    fout<<coordinataPlayer2<<endl;
+ }
 defField.stampaCampoDifesa(defenceFieldComputer);
 
 cout << "Dove vuoi fare fuoco?"<< endl;

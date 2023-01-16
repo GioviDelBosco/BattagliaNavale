@@ -1,0 +1,17 @@
+Corazzate:
+b6 b10
+Supporto:
+c1 c3
+Sottomarino:
+l12 l12
+Corazzata nemica:
+E0 I0
+E5 I5
+A5 E5
+Supporto nemico:
+L3 N3
+A1 C1
+A5 A7
+Sottomarino nemica:
+B9 B9
+F9 F9

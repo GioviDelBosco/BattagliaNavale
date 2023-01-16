@@ -2,368 +2,161 @@
 #include <string>
 #include <sstream>
 #include <cstdlib>
+
 #include <time.h>
 #include "Cpu.h"
+#include "Player.h"
 
 using namespace std;
+
+Player azione;
 
 Cpu::Cpu()
 {
     srand((unsigned int)time(NULL));
-}
+};
 
-string Cpu::getCoordinateRND(int flag, char (&defenceFieldCPU)[12][12])
-{
-    int RoC; // riga o colonna casuale
+string Cpu::getCoordinateRND(int flag, char (&defenceFieldCPU)[12][12]){
+
+    string coordinateRandom;
+    int RoC;
+    ostringstream ss; // riga o colonna casuale
     int num, Yi, Yf;
     char Xi, Xf;
-    int count = 0;
-    // corazzata
-
-    if (flag == 0)
-    {
+    int cont;
+    
+    if(flag==0){
+        //cout<<"sono qui\n";
+        cont=0;
         RoC = rand() % 2;
         if (RoC == 0)
-        { // same riga  -----> orizzontale
-            do
-            {
-                do
-                {
-                    num = rand() % 12;
-                } while (num > 7);
-                if (num == 9)
-                { // evito J
-                    Xi = ('A' + num) + 2;
-                    Xf = Xi;
-                    // colonna varia
-                }
-                else if (num == 10)
-                { // evito k
-                    Xi = ('A' + num) + 1;
-                    Xf = Xi;
-                    // colonna varia
-                    Yi = 1 + rand() % 12;
-                    Yf = Yi + 4;
-                }
-                else
-                {
-                    Xi = ('A' + num);
-                    Xf = Xi;
-                    // colonna varia
-
-                    Yi = 1 + rand() % 12;
-                    Yf = Yi + 4;
-                }
-                
-                for (int i = num; i < num + 5; i++)
-                {
-                    cout<<"Sono qua"<<endl;
-                    if (defenceFieldCPU[num][i] = ' ')
+        { 
+            // same riga  -----> orizzontale
+            do{
+                num=rand()%11;
+                Xi='A' + num;
+                Xf=Xi;
+                do{
+                    num=rand()%11;
+                }while(num>7);
+                Yi=num;
+                Yf=Yi+4;
+                for(int i=num;i<num+6;i++)
                     {
-                        count++;
-                        cout<<count<<endl;
+                        if(defenceFieldCPU[num][i] == ' ') cont++;
+                        else cont=0;
                     }
-                    else
-                        count = 0;
-                }
-            } while (count != 5);
-            ostringstream ss;
+                }while(cont<5);
             ss << Xi << Yi << " " << Xf << Yf;
-            string coordinatineRandom = ss.str();
-            count = 0;
-            return coordinatineRandom;
+            coordinateRandom = ss.str();
+            cout<<coordinateRandom<<endl;
+        azione.piazzaBarca(flag,defenceFieldCPU,coordinateRandom);
         }
-        else if (RoC == 1)
-        { // colonna uguale
-            // riga lettera varia
-            do
-            {
-                do
-                {
-                    num = rand() % 12;
-                } while (num > 7);
-                if (num == 9)
-                {
-                    Xi = 'A' + num + 2;
-                    Xf = Xi + 5;
-                    // colonna lettera fissa
-
-                    Yi = 1 + rand() % 12;
-                    Yf = Yi;
-                }
-                if (num == 10)
-                {
-                    Xi = 'A' + num + 1;
-                    Xf = Xi + 5;
-                    // colonna lettera fissa
-
-                    Yi = 1 + rand() % 12;
-                    Yf = Yi;
-                }
-                else
-                {
-                    Xi = 'A' + num;
-                    Xf = Xi + 5;
-                    if (Xf == 'J')
-                        Xf = Xf + 2;
-                    else if (Xf == 'K')
-                        Xf = Xf + 1;
-                    // colonna lettera fissa
-
-                    Yi = 1 + rand() % 12;
-                    Yf = Yi;
-                }
-                for (int i = num; i < num + 5; i++)
-                {
-                    if (defenceFieldCPU[i][num] = ' ')
-                    {
-                        count++;
-                    }
-                    else
-                        count = 0;
-                }
-            } while (count != 5);
-
-            ostringstream ss;
-            ss << Xi << Yi << " " << Xf << Yf;
-            string coordinatineRandom = ss.str();
-            count = 0;
-            return coordinatineRandom;
-        }
-        // supporto
-        else if (flag == 1)
+        else if(RoC==1)
         {
-            cout<<"Sono qua supporto"<<endl;
-            RoC = rand() % 2;
-            if (RoC == 0)
-            { // same riga
-                do
-                {
-                    do
-                    {
-                        num = rand() % 12;
-                    } while (num > 9);
-                    if (num == 9)
-                    { // evito J
-                        Xi = ('A' + num) + 2;
-                        Xf = Xi;
-                        // colonna varia
-
-                        do
-                        {
-                            Yi = 1 + rand() % 12;
-                        } while (Yi > 8);
-                        Yf = Yi + 2;
-                    }
-                    else if (num == 10)
-                    { // evito k
-                        Xi = ('A' + num) + 1;
-                        Xf = Xi;
-                        // colonna varia
-
-                        Yi = 1 + rand() % 12;
-                        Yf = Yi + 2;
-                    }
-                    else
-                    {
-                        Xi = ('A' + num);
-                        Xf = Xi;
-                        // colonna varia
-
-                        Yi = 1 + rand() % 12;
-                        Yf = Yi + 2;
-                    }
-                    for (int i = num; i < num + 3; i++)
-                    {
-                        if (defenceFieldCPU[num][i] == ' ')
-                        {
-                            count++;
-                        }
-                        else
-                            count = 0;
-                    }
-                } while (count != 3);
-            ostringstream ss;
-            ss << Xi << Yi << " " << Xf << Yf;
-            string coordinatineRandom = ss.str();
-            count = 0;
-            return coordinatineRandom;
+            
+            do{
+                Yi=rand()%11;
+                Yf=Yi;
+            do{
+                num=rand()%11;
+               
+            }while(num>7);
+             if(num > 6){
+                    num += 2;
+                }
+            Xi='A' + num;
+            Xf=Xi+4;
+            for(int i=num;i<num+6;i++)
+            {
+                if(defenceFieldCPU[i][num] == ' ') cont++;
+                else cont=0;
             }
-            else if (RoC == 1)
-            { // colonna uguale
-                // riga lettera varia
-                do
-                {
-                    do
-                    {
-                        num = rand() % 12;
-                    } while (num > 9);
-                    // incolla qua
+            }while(cont<5);
 
-                    if (num == 9)
-                    {
-                        Xi = 'A' + num + 2;
-                        Xf = Xi + 3;
-                        // colonna lettera fissa
-
-                        Yi = 1 + rand() % 12;
-                        Yf = Yi;
-                    }
-                    if (num == 10)
-                    {
-                        Xi = 'A' + num + 1;
-                        Xf = Xi + 3;
-                        // colonna lettera fissa
-
-                        Yi = 1 + rand() % 12;
-                        Yf = Yi;
-                    }
-                    else
-                    {
-                        Xi = 'A' + num;
-                        Xf = Xi + 3;
-                        if (Xf == 'J')
-                            Xf = Xf + 2;
-                        else if (Xf == 'K')
-                            Xf = Xf + 1;
-                        // colonna lettera fissa
-
-                        Yi = 1 + rand() % 12;
-                        Yf = Yi;
-                    }
-                    for (int i = num; i < num + 3; i++)
-                    {
-
-                        if (defenceFieldCPU[num][i] = ' ')
-                        {
-                            count++;
-                        }
-                        else
-                            count = 0;
-                    }
-                } while (count != 3);
-            }
-            ostringstream ss;
             ss << Xi << Yi << " " << Xf << Yf;
-            string coordinatineRandom = ss.str();
-            count = 0;
-            return coordinatineRandom;
-        }
-        // parentesi chiusa
-
-        // sottomarino
-        else if (flag == 2)
-        {
-            RoC = rand() % 2;
-            if (RoC == 0)
-            { // same riga
-                do
-                {
-                    num = rand() % 12;
-                    if (num == 9)
-                    { // evito J
-                        Xi = ('A' + num) + 2;
-                        Xf = Xi;
-                        // colonna varia
-
-                        do
-                        {
-                            Yi = 1 + rand() % 12;
-                        } while (Yi > 8);
-                        Yf = Yi;
-                    }
-                    else if (num == 10)
-                    { // evito k
-                        Xi = ('A' + num) + 1;
-                        Xf = Xi;
-                        // colonna varia
-
-                        Yi = 1 + rand() % 12;
-                        Yf = Yi;
-                    }
-                    else
-                    {
-                        Xi = ('A' + num);
-                        Xf = Xi;
-                        // colonna varia
-
-                        Yi = 1 + rand() % 12;
-                        Yf = Yi;
-                    }
-                    for (int i = num; i < num; i++)
-                    {
-
-                        if (defenceFieldCPU[num][i] == ' ')
-                        {
-                            count++;
-                        }
-                        else
-                            count = 0;
-                    }
-                } while (count != 1);
-
-                //
-                ostringstream ss;
-            ss << Xi << Yi << " " << Xf << Yf;
-            string coordinatineRandom = ss.str();
-            count = 0;
-            return coordinatineRandom;
-
-            }
-            else if (RoC == 1)
-            { // colonna uguale
-                // riga lettera varia
-                do
-                {
-                    num = rand() % 12;
-                    if (num == 9)
-                    {
-                        Xi = 'A' + num + 2;
-                        Xf = Xi;
-                        // colonna lettera fissa
-
-                        Yi = 1 + rand() % 12;
-                        Yf = Yi;
-                    }
-                    if (num == 10)
-                    {
-                        Xi = 'A' + num + 1;
-                        Xf = Xi;
-                        // colonna lettera fissa
-
-                        Yi = 1 + rand() % 12;
-                        Yf = Yi;
-                    }
-                    else
-                    {
-                        Xi = 'A' + num;
-                        Xf = Xi;
-                        if (Xf == 'J')
-                            Xf = Xf + 2;
-                        else if (Xf == 'K')
-                            Xf = Xi;
-                        // colonna lettera fissa
-
-                        Yi = 1 + rand() % 12;
-                        Yf = Yi;
-                    }
-                    for (int i = num; i < num; i++)
-                    {
-
-                        if (defenceFieldCPU[i][num] = ' ')
-                        {
-                            count++;
-                        }
-                        else
-                            count = 0;
-                    }
-                } while (count != 1);
-            }
-            ostringstream ss;
-            ss << Xi << Yi << " " << Xf << Yf;
-            string coordinatineRandom = ss.str();
-            count = 0;
-            return coordinatineRandom;
-        }
+            coordinateRandom = ss.str();
+            cout<<coordinateRandom<<endl;
+            azione.piazzaBarca(flag,defenceFieldCPU,coordinateRandom);
+        } 
     }
-} // end
+
+    else if(flag==1)
+    {
+        cont=0;
+        RoC = rand() % 2;
+        if (RoC == 0)
+        { 
+            // same riga  -----> orizzontale
+            do{
+                num=rand()%11;
+                Xi='A' +num;
+                Xf=Xi;
+                do{
+                    num=rand()%11;
+                }while(num>9);
+                Yi=num;
+                Yf=Yi+2;
+                for(int i=num;i<num+4;i++)
+                    {
+                        if(defenceFieldCPU[num][i]==' ') cont++;
+                        else cont=0;
+                    }
+                }while(cont<3);
+            ss << Xi << Yi << " " << Xf << Yf;
+            coordinateRandom = ss.str();
+            cout<<coordinateRandom<<endl;
+        azione.piazzaBarca(flag,defenceFieldCPU,coordinateRandom);
+        }
+        else if(RoC==1)
+        {
+            do{
+                Yi=rand()%11;
+                Yf=Yi;
+            do{
+                num=rand()%11;
+               
+            }while(num>9);
+             if(num > 6){
+                    num += 2;
+                }
+            Xi='A' + num;
+            Xf=Xi+2;
+            for(int i=num;i<num+4;i++)
+            {
+                if(defenceFieldCPU[i][num]==' ') cont++;
+                else cont=0;
+            }
+            }while(cont<3);
+
+            ss << Xi << Yi << " " << Xf << Yf;
+            coordinateRandom = ss.str();
+            cout<<coordinateRandom<<endl;
+            azione.piazzaBarca(flag,defenceFieldCPU,coordinateRandom);
+        } 
+    }
+    else if(flag==2)
+    {
+        cont=0;
+            // same riga  -----> orizzontale
+            do{
+                num=rand()%11;
+                Xi='A' +num;
+                Xf=Xi;
+                num=rand()%11;
+                Yi=num;
+                Yf=Yi;
+                for(int i=num;i<=num;i++)
+                    {
+                        if(defenceFieldCPU[num][i]==' ') cont++;
+                        else cont=0;
+                    }
+            }while(cont<1);
+            ss << Xi << Yi << " " << Xf << Yf;
+            coordinateRandom = ss.str();
+            cout<<coordinateRandom<<endl;
+        azione.piazzaBarca(flag,defenceFieldCPU,coordinateRandom);
+    }
+
+    return coordinateRandom;
+}
