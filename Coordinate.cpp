@@ -106,3 +106,46 @@ vector<int> Coordinate::getCentro(string coordinata, char (&defenceFieldPlayer)[
     }
 }
 // da rivedere un attimo perche' esegue tutti e due gli else in caso di barca verticale
+
+bool Coordinate::posOccupataLine(int Xi, int Yi, int Yf, char (&defenceFieldCPU)[12][12]){
+
+    char ASCII_C='C';
+    char ASCII_S='S';
+    char ASCII_E='E';
+
+    bool posOccupata = 0;
+
+    for(int i=Yi;i<Yf+1;i++)
+    {
+        
+        if(defenceFieldCPU[Xi][i] == ASCII_C || defenceFieldCPU[Xi][i] == ASCII_S || defenceFieldCPU[Xi][i] == ASCII_E) { 
+            posOccupata=1;
+           // break;
+        }
+        else {
+            posOccupata=0;
+        }
+    }
+    return posOccupata;
+}
+bool Coordinate::posOccupataCol(int Yi, int Xi, int Xf, char (&defenceFieldCPU)[12][12]){
+
+    char ASCII_C='C';
+    char ASCII_S='S';
+    char ASCII_E='E';
+
+    bool posOccupata = 0;
+
+    for(int i=Xi;i<Xi+1;i++)
+    {
+        
+        if(defenceFieldCPU[i][Yi] == ASCII_C || defenceFieldCPU[i][Yi] == ASCII_S || defenceFieldCPU[i][Yi] == ASCII_E) { 
+            posOccupata=1;
+            //break;
+        }
+        else {
+            posOccupata=0;
+        }
+    }
+    return posOccupata;
+}

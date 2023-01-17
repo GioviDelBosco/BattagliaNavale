@@ -1,22 +1,21 @@
 Corazzate:
-b6 b10
+a1 a5
 Supporto:
-c2 e2
+n10 n12
 Sottomarino:
-n1 n1
+f6 f6
 Corazzata nemica:
-Supporto nemico:
 Sottomarino nemica:
-     |       |       |   
-B	    |       |       |       |       |   C   |   C   |   C   |   C   |   C   |       |       |   
+      |       |       |       |       |   
+B	    |       |       |       |       |       |       |       |       |       |       |       |   
 C	    |       |       |       |       |       |       |       |       |       |       |       |   
 D	    |       |       |       |       |       |       |       |       |       |       |       |   
-E	    |       |       |       |       |       |       |       |       |       |       |       |   
+E	    |       |       |       |       |   E   |       |       |       |       |       |       |   
 F	    |       |       |       |       |       |       |       |       |       |       |       |   
 G	    |       |       |       |       |       |       |       |       |       |       |       |   
 H	    |       |       |       |       |       |       |       |       |       |       |       |   
 I	    |       |       |       |       |       |       |       |       |       |       |       |   
-L	    |   S   |       |       |       |       |       |       |       |       |       |       |   
-M	    |   S   |       |       |       |       |       |       |       |       |       |       |   
-N	E   |   S   |       |       |       |       |       |       |       |       |       |       |   
+L	    |       |       |       |       |       |       |       |       |       |       |       |   
+M	    |       |       |       |       |       |       |       |       |       |       |       |   
+N	    |       |       |       |       |       |       |       |       |   S   |   S   |   S   |   
 

@@ -20,7 +20,7 @@ using namespace std;
 int main()
 {
     ofstream fout("replica.txt"); //file scrittura replica partita
-
+    bool win=0;
     // questo deve essere un array di puntatori se avete usato i puntatoris
     char defenceFieldPlayer[LINEdef][COLdef];
     char attackFieldPlayer[LINEatk][COLatk];
@@ -133,8 +133,9 @@ for(int i=0;i<3;i++){
     
     coordinataPlayer2 = Pc.getCoordinateRND(flag, defenceFieldComputer);
  }
+
  flag = 1;
- fout<<"Supporto nemico:\n";
+
  for (int i = 0; i < 3; i++){
     coordinataPlayer2 = Pc.getCoordinateRND(flag, defenceFieldComputer);
  }
@@ -144,7 +145,16 @@ for(int i=0;i<3;i++){
     coordinataPlayer2 = Pc.getCoordinateRND(flag,defenceFieldComputer);
  }
 defField.stampaCampoDifesa(defenceFieldComputer);
-//while(cont<10)
+
+// inserimento while per fare più mosse
+/*do{
+    
+}while(win==0);
+*/
+
+
+
+
 //{
     cout << "Dove vuoi fare fuoco?"<< endl;
 //-----------------------FUOCO-----------------------------
@@ -159,10 +169,15 @@ defField.stampaCampoDifesa(defenceFieldComputer);
         cout << "Inserisci coordinate per muoviBarca"<< endl;
         getline(std::cin, comando);
        
-    }
-    while(naveDiSupporto.checkPosArrivoLine(comando,defenceFieldPlayer) == 0 || naveDiSupporto.checkPosArrivoCol(comando,defenceFieldPlayer) == 0);
-    azione.muoviBarca(defenceFieldPlayer,comando);
+    }while(naveDiSupporto.checkPosArrivoLine(comando,defenceFieldPlayer) == 0 || naveDiSupporto.checkPosArrivoCol(comando,defenceFieldPlayer) == 0);
+    //qua
+    cout<<" "<<endl;
+    sottomarino.muoviECerca(attackFieldPlayer,defenceFieldComputer,defenceFieldPlayer,comando);
     defField.stampaCampoDifesa(defenceFieldPlayer);
+    atkField.stampaCampoAttacco(attackFieldPlayer);
+    cout<<" "<<endl;
+    //azione.muoviBarca(defenceFieldPlayer,comando);
+    //defField.stampaCampoDifesa(defenceFieldPlayer);
     //cont++;
 //}
 
