@@ -27,9 +27,8 @@ void ShipSottomarino::muoviECerca(char (&attackFieldPlayer)[12][12], char (&defe
     {
         for (int c = 0; c < 5; c++) // column
         {
-            int x = coordinataSpostamento[0] - 2 + i;
+            int x = coordinataSpostamento[0] - 3 + i;
             int y = coordinataSpostamento[1] - 2 + c;
-            cout<<x<<" - "<<y<<endl;
             if (defenceFieldCPU[x][y] != ' ')
             {
                 attackFieldPlayer[x][y] = 'Y';

@@ -24,7 +24,7 @@ string Cpu::getCoordinateRND(int flag, char (&defenceFieldCPU)[12][12]){
     char ASCII_S='S';
     char ASCII_E='E';
     ostringstream ss; // riga o colonna casuale
-    int num, Yi, Yf;
+    int num, Yi, Yf,cont=0,XI;
     char Xi, Xf;
 
     //bool occ=1;
@@ -39,27 +39,24 @@ string Cpu::getCoordinateRND(int flag, char (&defenceFieldCPU)[12][12]){
             // same riga  -----> orizzontale
             do{
                 num=rand()%11;
-                Xi=num;
+                XI=num-1;
                 do{
                     num=rand()%11;
                 }while(num>7);
                 Yi=num;
                 Yf=Yi+4;
-                /*
+                
                 for(int i=Yi;i<Yf+1;i++)
                     {
                         
-                        if(defenceFieldCPU[Xi][i] == ASCII_C || defenceFieldCPU[Xi][i] == ASCII_S || defenceFieldCPU[Xi][i] == ASCII_E) { 
-                            occ=1;
-                            break;
-                        }
-                        else {
-                            occ=0;
+                        if(defenceFieldCPU[XI][i] == ' ') {
+                            //cout<<"libero"<<endl;
+                            cont++;
+                            
                         }
                     }
-                */
-            }while(casella.posOccupataLine(Xi,Yi,Yf,defenceFieldCPU)==1);
-            Xi='A' + num;
+                }while(cont<5);//casella.posOccupataLine(Xi,Yi,Yf,defenceFieldCPU)==1);
+            Xi='A' + XI;
             Xf=Xi;
             if(Yi == 0){
                 Yf += 1;
@@ -67,7 +64,7 @@ string Cpu::getCoordinateRND(int flag, char (&defenceFieldCPU)[12][12]){
             
             ss << Xi << Yi << " " << Xf << Yf;
             coordinateRandom = ss.str();
-            cout << " flag 0 C" << "riga" << coordinateRandom <<endl ;
+            //cout << " coordinate" << coordinateRandom <<endl ;
             
         azione.piazzaBarca(flag,defenceFieldCPU,coordinateRandom);
         }
@@ -84,23 +81,18 @@ string Cpu::getCoordinateRND(int flag, char (&defenceFieldCPU)[12][12]){
              if(num > 6){
                     num += 2;
                 }
-            Xi=num;
-            /*
-            for(int i=Xi;i<Xi+5;i++)
-            {
-                
-                if(defenceFieldCPU[i][Yi] == ASCII_C || defenceFieldCPU[i][Yi] == ASCII_S || defenceFieldCPU[i][Yi] == ASCII_E){
-                    occ=1;
-                    break;
+            XI=num-1;
+            
+            for(int i=XI;i<XI+4;i++)
+                    {
+                        
+                        if(defenceFieldCPU[i][Yi] == ' ') {
+                            cont++;
+                        }
                     }
-                else {
-                    occ=0;
-                    
-                }
-            }
-            */
-            }while(casella.posOccupataCol(Xi,Yi,Yf,defenceFieldCPU)==1);
-        Xi='A' + num;
+                }while(cont<5);//casella.posOccupataLine(Xi,Yi,Yf,defenceFieldCPU)==1);
+            //}while(casella.posOccupataCol(Xi,Yi,Yf,defenceFieldCPU)==1);
+        Xi='A' + XI;
         if(Xi == 'A'){
             Xf +=1;
         }
@@ -112,8 +104,7 @@ string Cpu::getCoordinateRND(int flag, char (&defenceFieldCPU)[12][12]){
         }
         ss << Xi << Yi << " " << Xf << Yf;
         coordinateRandom = ss.str();        
-            cout << " flag 0 C" << "colonna" << coordinateRandom <<endl ;
-
+        //cout << " coordinate " << coordinateRandom <<endl ;
         azione.piazzaBarca(flag,defenceFieldCPU,coordinateRandom);
         } 
     }
@@ -126,32 +117,35 @@ string Cpu::getCoordinateRND(int flag, char (&defenceFieldCPU)[12][12]){
             // same riga  -----> orizzontale
             do{
                 num=rand()%11;
-                Xi=num;
+                XI=num-1;
                 do{
                     num=rand()%11;
                 }while(num>9);
                 Yi=num;
-                Yf=Yi+2;
-                /*for(int i=Yi;i<Yf+1;i++)
+                if(Yi == 0){
+                Yf += 1;
+                }
+                else{
+                    Yf=Yi+2;
+                }
+                
+                for(int i=Yi;i<Yf+1;i++)
                     {
                         
-                        if(defenceFieldCPU[Xi][i] == ASCII_C || defenceFieldCPU[Xi][i] == ASCII_S || defenceFieldCPU[Xi][i] == ASCII_E ) {
-                            occ=1;
-                            break;
+                        if(defenceFieldCPU[XI][i] == ' ') {
+                            cont++;
+                            
                         }
-                        else{
-                            occ=0;
-            
-                        }
-                    }*/
-                }while(casella.posOccupataLine(Xi,Yi,Yf,defenceFieldCPU)==1);
-                Xi='A' +num;
+                    }
+                }while(cont<3);//casella.posOccupataLine(Xi,Yi,Yf,defenceFieldCPU)==1);
+                    
+                //}while(casella.posOccupataLine(Xi,Yi,Yf,defenceFieldCPU)==1);
+                Xi='A' +XI;
                 Xf=Xi;
             ss << Xi << Yi << " " << Xf << Yf;
             coordinateRandom = ss.str();
-            cout << " flag 1 S" << "riga" << coordinateRandom <<endl ;
-
-        azione.piazzaBarca(flag,defenceFieldCPU,coordinateRandom);
+            //cout << " coordinate" << coordinateRandom <<endl ;
+            azione.piazzaBarca(flag,defenceFieldCPU,coordinateRandom);
         }
         else if(RoC==1)
         {
@@ -165,24 +159,22 @@ string Cpu::getCoordinateRND(int flag, char (&defenceFieldCPU)[12][12]){
              if(num > 6){
                     num += 2;
                 }
-            Xi=num;
+            XI=num-1;
+            for(int i=XI;i<XI+2;i++)
+                    {
+                        
+                        if(defenceFieldCPU[i][Yi] == ' ') {
+                            cont++;
+                        }
+                    }
+                }while(cont<3);//casella.posOccupataLine(Xi,Yi,Yf,defenceFieldCPU)==1);
             
-            /*for(int i=Xi;i<Xi+3;i++)
-            {
-                if(defenceFieldCPU[i][Yi] == ASCII_C || defenceFieldCPU[i][Yi] == ASCII_S || defenceFieldCPU[i][Yi] == ASCII_E ){
-                    occ=1;
-                    break;
-                } 
-                else {
-                    occ=0;
-                }
-            }*/
-            }while(casella.posOccupataCol(Xi,Yi,Yf,defenceFieldCPU));
-            Xi='A' +num;
+            //}while(casella.posOccupataCol(Xi,Yi,Yf,defenceFieldCPU));
+            Xi='A' +XI;
             Xf=Xi+2;
             ss << Xi << Yi << " " << Xf << Yf;
             coordinateRandom = ss.str();           
-             cout << " flag 0 C" << "colonna" << coordinateRandom <<endl ;
+            //cout << " coordinate" << coordinateRandom <<endl ;
 
             azione.piazzaBarca(flag,defenceFieldCPU,coordinateRandom);
         } 
