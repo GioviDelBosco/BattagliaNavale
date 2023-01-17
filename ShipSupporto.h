@@ -10,6 +10,8 @@ class ShipSupporto {
     public:
         ShipSupporto();
         void muoviERipara(string comando, char (&defenceFieldPlayer)[12][12]);
+        bool checkPosArrivoLine(string coordinata, char (&defenceFieldPlayer)[12][12]);
+        bool checkPosArrivoCol(string coordinata, char (&defenceFieldPlayer)[12][12]);
         void inserisciSupporto();
     private:
         int dimensione;

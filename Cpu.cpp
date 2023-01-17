@@ -20,6 +20,7 @@ string Cpu::getCoordinateRND(int flag, char (&defenceFieldCPU)[12][12]){
 
     string coordinateRandom;
     int RoC;
+    char ASCII_SPACE=' ';
     ostringstream ss; // riga o colonna casuale
     int num, Yi, Yf;
     char Xi, Xf;
@@ -34,22 +35,27 @@ string Cpu::getCoordinateRND(int flag, char (&defenceFieldCPU)[12][12]){
             // same riga  -----> orizzontale
             do{
                 num=rand()%11;
-                Xi='A' + num;
-                Xf=Xi;
+                Xi=num;
                 do{
                     num=rand()%11;
                 }while(num>7);
                 Yi=num;
                 Yf=Yi+4;
-                for(int i=num;i<num+6;i++)
+                for(int i=Yi;i<Yf+1;i++)
                     {
-                        if(defenceFieldCPU[num][i] == ' ') cont++;
+                        //cout<<defenceFieldCPU[Xi][i]<<endl;
+                        if(defenceFieldCPU[Xi][i] == ASCII_SPACE) {
+                            cont++;
+                            cout<<cont<<endl;
+                        }
                         else cont=0;
                     }
                 }while(cont<5);
+            Xi='A' + num;
+            Xf=Xi;
             ss << Xi << Yi << " " << Xf << Yf;
             coordinateRandom = ss.str();
-            cout<<coordinateRandom<<endl;
+            
         azione.piazzaBarca(flag,defenceFieldCPU,coordinateRandom);
         }
         else if(RoC==1)
@@ -65,23 +71,24 @@ string Cpu::getCoordinateRND(int flag, char (&defenceFieldCPU)[12][12]){
              if(num > 6){
                     num += 2;
                 }
-            Xi='A' + num;
-            Xf=Xi+4;
-            for(int i=num;i<num+6;i++)
+            Xi=num;
+            
+            for(int i=Xi;i<Xi+5;i++)
             {
-                if(defenceFieldCPU[i][num] == ' ') cont++;
+                //cout<<defenceFieldCPU[i][Yi]<<endl;
+                if(defenceFieldCPU[i][Yi] == ASCII_SPACE) cont++;
                 else cont=0;
             }
             }while(cont<5);
-
-            ss << Xi << Yi << " " << Xf << Yf;
-            coordinateRandom = ss.str();
-            cout<<coordinateRandom<<endl;
-            azione.piazzaBarca(flag,defenceFieldCPU,coordinateRandom);
+        Xi='A' + num;
+        Xf=Xi+4;
+        ss << Xi << Yi << " " << Xf << Yf;
+        coordinateRandom = ss.str();        
+        azione.piazzaBarca(flag,defenceFieldCPU,coordinateRandom);
         } 
     }
 
-    else if(flag==1)
+    /*else if(flag==1)
     {
         cont=0;
         RoC = rand() % 2;
@@ -90,22 +97,24 @@ string Cpu::getCoordinateRND(int flag, char (&defenceFieldCPU)[12][12]){
             // same riga  -----> orizzontale
             do{
                 num=rand()%11;
-                Xi='A' +num;
-                Xf=Xi;
+                Xi=num;
                 do{
                     num=rand()%11;
                 }while(num>9);
                 Yi=num;
                 Yf=Yi+2;
-                for(int i=num;i<num+4;i++)
+                for(int i=Yi;i<Yf+1;i++)
                     {
-                        if(defenceFieldCPU[num][i]==' ') cont++;
+                        //cout<<"Celle occupata: riga "<<defenceFieldCPU[Xi][i]<<endl;
+                        if(defenceFieldCPU[Xi][i] == ASCII_SPACE) cont++;
                         else cont=0;
                     }
                 }while(cont<3);
+                Xi='A' +num;
+                Xf=Xi;
             ss << Xi << Yi << " " << Xf << Yf;
             coordinateRandom = ss.str();
-            cout<<coordinateRandom<<endl;
+            
         azione.piazzaBarca(flag,defenceFieldCPU,coordinateRandom);
         }
         else if(RoC==1)
@@ -120,43 +129,47 @@ string Cpu::getCoordinateRND(int flag, char (&defenceFieldCPU)[12][12]){
              if(num > 6){
                     num += 2;
                 }
-            Xi='A' + num;
-            Xf=Xi+2;
-            for(int i=num;i<num+4;i++)
+            Xi=num;
+            
+            for(int i=Xi;i<Xi+3;i++)
             {
-                if(defenceFieldCPU[i][num]==' ') cont++;
+                //cout<<"Cella occupata: colonna "<<defenceFieldCPU[i][Yi]<<endl;
+                if(defenceFieldCPU[i][Yi] == ASCII_SPACE) cont++;
                 else cont=0;
             }
             }while(cont<3);
-
+            Xi='A' +num;
+            Xf=Xi+2;
             ss << Xi << Yi << " " << Xf << Yf;
             coordinateRandom = ss.str();
-            cout<<coordinateRandom<<endl;
+            
             azione.piazzaBarca(flag,defenceFieldCPU,coordinateRandom);
         } 
     }
+/*
     else if(flag==2)
     {
         cont=0;
             // same riga  -----> orizzontale
             do{
                 num=rand()%11;
-                Xi='A' +num;
-                Xf=Xi;
+                Xi=num;
                 num=rand()%11;
                 Yi=num;
                 Yf=Yi;
-                for(int i=num;i<=num;i++)
+                for(int i=Yi;i<Yi+1;i++)
                     {
-                        if(defenceFieldCPU[num][i]==' ') cont++;
+                        if(defenceFieldCPU[Xi][i] == ASCII_SPACE) cont++;
                         else cont=0;
                     }
             }while(cont<1);
+            Xi='A' +num;
+            Xf=Xi;
             ss << Xi << Yi << " " << Xf << Yf;
             coordinateRandom = ss.str();
-            cout<<coordinateRandom<<endl;
+            
         azione.piazzaBarca(flag,defenceFieldCPU,coordinateRandom);
     }
-
+*/
     return coordinateRandom;
 }

@@ -24,7 +24,7 @@ int main()
     // questo deve essere un array di puntatori se avete usato i puntatoris
     char defenceFieldPlayer[LINEdef][COLdef];
     char attackFieldPlayer[LINEatk][COLatk];
-
+    int cont=0;
     char defenceFieldComputer[LINEdef][COLdef];
     char attackFieldComputer[LINEatk][COLatk];
 
@@ -132,29 +132,39 @@ fout<<"Corazzata nemica:\n";
 for(int i=0;i<3;i++){
     
     coordinataPlayer2 = Pc.getCoordinateRND(flag, defenceFieldComputer);
-    fout<<coordinataPlayer2<<endl;
  }
  flag = 1;
  fout<<"Supporto nemico:\n";
  for (int i = 0; i < 3; i++){
     coordinataPlayer2 = Pc.getCoordinateRND(flag, defenceFieldComputer);
-    fout<<coordinataPlayer2<<endl;
  }
  flag=2;
  fout<<"Sottomarino nemica:\n";
  for (int i = 0; i < 2; i++){
     coordinataPlayer2 = Pc.getCoordinateRND(flag,defenceFieldComputer);
-    fout<<coordinataPlayer2<<endl;
  }
 defField.stampaCampoDifesa(defenceFieldComputer);
-
-cout << "Dove vuoi fare fuoco?"<< endl;
+//while(cont<10)
+//{
+    cout << "Dove vuoi fare fuoco?"<< endl;
 //-----------------------FUOCO-----------------------------
     string comando;
     getline(std::cin, comando);
     //B6 B10
     naveCorazzata.fuoco(comando,attackFieldPlayer,defenceFieldComputer,defenceFieldPlayer);
     atkField.stampaCampoAttacco(attackFieldPlayer);
+//---------------------------------------------------------
+    
+    do{
+        cout << "Inserisci coordinate per muoviBarca"<< endl;
+        getline(std::cin, comando);
+       
+    }
+    while(naveDiSupporto.checkPosArrivoLine(comando,defenceFieldPlayer) == 0 || naveDiSupporto.checkPosArrivoCol(comando,defenceFieldPlayer) == 0);
+    azione.muoviBarca(defenceFieldPlayer,comando);
+    defField.stampaCampoDifesa(defenceFieldPlayer);
+    //cont++;
+//}
 
     return 0;
 }

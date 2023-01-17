@@ -41,6 +41,37 @@ void ShipSupporto::muoviERipara(string comando, char (&defenceFieldPlayer)[12][1
 
 
 }
+bool ShipSupporto::checkPosArrivoLine(string coordinata, char (&defenceFieldPlayer)[12][12]){
+    
+    bool isCorrect = 1;
+    vector<int> posizioneArrivo = Coordinate::convertStringToInt(coordinata);
+    if(posizioneArrivo[3]+1>11){
+
+        isCorrect = 0;
+        cout<<"Coordinata di arrivo non valida\n";
+    }
+    else{
+        isCorrect = 1;
+    }
+
+    return isCorrect;
+}
+
+bool ShipSupporto::checkPosArrivoCol(string coordinata, char (&defenceFieldPlayer)[12][12]){
+    
+    bool isCorrect = 1;
+    vector<int> posizioneArrivo = Coordinate::convertStringToInt(coordinata);
+    if(posizioneArrivo[2]+1>11){
+
+        isCorrect = 0;
+        cout<<"Coordinata di arrivo non valida\n";
+    }
+    else{
+        isCorrect = 1;
+    }
+
+    return isCorrect;
+}
 
 void inserisciSupporto(){
 
