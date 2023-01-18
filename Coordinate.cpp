@@ -62,7 +62,6 @@ vector<int> Coordinate::convertStringToInt(string coordinata)
 // creo un vettore di int
 // vector<int> cacapupu = convertStringToInt(coordinata)
 // uso o pop back o uso le quadre [0(Xi),1(Yi),2(Xf),3(Yf)]
-// cacapupu[0]
 
 vector<int> Coordinate::getCentro(string coordinata, char (&defenceFieldPlayer)[12][12])
 {
@@ -80,7 +79,7 @@ vector<int> Coordinate::getCentro(string coordinata, char (&defenceFieldPlayer)[
 
                 coordinataFinale.push_back(coordinataCentro[0]);
                 coordinataFinale.push_back(coordinataCentro[1]);
-                return coordinataFinale;
+                return coordinataFinale; //coordinata centro
             }
         }
         else if (defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == 'S')
@@ -169,8 +168,35 @@ bool Coordinate::posOccupataCol(int Yi, int Xi, int Xf, char (&defenceFieldCPU)[
 }
 
 
+/*---------------new centro random--------------*/
+vector<char> Coordinate::getCentroRandom(vector<string>coordinateCorazzate){
+        int sceltaCorazzata =rand()%3;
+        vector<char> coordinateCentroRnd;
+        string C1 = coordinateCorazzate.at(sceltaCorazzata); //B6 B10
+        char XI=C1.at(0);
+        char YI=C1.at(1);
+        char XF=C1.at(3);
+        char YF=C1.at(4);
+        char Xcentro,Ycentro;
+        if(XI==XF){
+            Xcentro=XI;
+            Ycentro=YI+2;
+        } 
+        else if(YI==YF){
+            Xcentro=XI+2;
+            Ycentro=YI;
+        }
+        coordinateCentroRnd.push_back(Xcentro);
+        coordinateCentroRnd.push_back(Ycentro);
+        return coordinateCentroRnd;
+    }
 
-bool Coordinate::getCentroRandom(bool centro,string coordinata, char (&defenceFieldPlayer)[12][12])
+
+
+
+   
+   
+/*bool Coordinate::getCentroRandom(bool centro,string coordinata, char (&defenceFieldPlayer)[12][12])
 {
     vector<int> coordinataCentro = Coordinate::convertStringToInt(coordinata);
     vector<int> coordinataFinale;
@@ -206,4 +232,4 @@ bool Coordinate::getCentroRandom(bool centro,string coordinata, char (&defenceFi
             centro=1;
             return centro;
         }
-    }
+    }*/

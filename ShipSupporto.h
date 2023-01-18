@@ -12,7 +12,6 @@ class ShipSupporto {
         void muoviERipara(string comando, char (&defenceFieldPlayer)[12][12]);
         bool checkPosArrivoLine(string coordinata, char (&defenceFieldPlayer)[12][12]);
         bool checkPosArrivoCol(string coordinata, char (&defenceFieldPlayer)[12][12]);
-        char ripara(int posArrivoX, int posArrivoY, char (&defenceFieldPlayer)[12][12]);
     private:
         int dimensione;
         int corazza;

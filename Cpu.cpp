@@ -31,7 +31,6 @@ string Cpu::getCoordinateRND(int flag, char (&defenceFieldCPU)[12][12])
     int nR, nC, Yi, Yf, num;
     int Xi, Xf;
 
-
     Coordinate casella;
 
     if (flag == 0)
@@ -153,9 +152,9 @@ string Cpu::getCoordinateRND(int flag, char (&defenceFieldCPU)[12][12])
             azione.piazzaBarca(flag, defenceFieldCPU, coordinateRandom);
         }
     }
-        else if(flag==2)
-        {
-                RoC = rand() % 2;
+    else if (flag == 2)
+    {
+        RoC = rand() % 2;
         if (RoC == 0)
         {
             // same riga  -----> orizzontale
@@ -202,44 +201,82 @@ string Cpu::getCoordinateRND(int flag, char (&defenceFieldCPU)[12][12])
 
             azione.piazzaBarca(flag, defenceFieldCPU, coordinateRandom);
         }
-        }
+    }
     return coordinateRandom;
 }
 
 
-string Cpu::getCoordinataRNDattacco(char (&defenceFieldCPU)[12][12]){
-    int Xi,Yi;  //Xi,Yi => origine fuoco
-    int Xt,Yt;  //Xt,Y => target fuoco
-    int nR,nC;
-    bool attacco=0;
+/*string Cpu::getCoordinataRNDattacco(char (&defenceFieldCPU)[12][12])
+{
+    int Xi, Yi, Xf, Yf; // Xi,Yi => origine fuoco
+    int Xt, Yt; // Xt,Y => target fuoco
+    int nR, nC;
+    int RoC;
+    bool attacco = 0;
     ostringstream ss;
     string coordinateRandomattacco;
-    do{
-        nR=rand()%12;
-        Xi=nR;
-        nC=rand()%12;
-        Yi=nC;
+    RoC = rand() % 2;
+    if (RoC == 0) // riga
+    {
+        do
+        {
+                nR = rand() % 12;
+                Xi = nR;
+                nC = rand() % 12;
+                Yi = nC;
+                    
+                if (defenceFieldCPU[Xi][Yi] == 'C')
+                { 
+                    // controllo che sia il centro della corazzzata
+                    if (numeri[Xi] == Coordinate::getCentro(coordinateRandomattacco, defenceFieldCPU).at(0) && Yi == Coordinate::getCentro(coordinateRandomattacco, defenceFieldCPU).at(1))
+                    {
+                        attacco = 1;
+                    }
+                }
 
-        //coordinate target
-        nR=rand()%12;
-        Xt=nR;
-        nC=rand()%12;
-        Yt=nC;
-        if(defenceFieldCPU[Xi][Yi]=='C'){
+        } while (attacco == 0);
+        nR = rand() % 12;
+        Xt = nR;
+        nC = rand() % 12;
+        Yt = nC;
+    }
+    else if (RoC == 1)
+    {
+        do
+        {
 
-            ss << numeri[Xi] << Yi << " " << numeri[Xt] << Yt;
-            coordinateRandomattacco = ss.str();
-           
-             //controllo che sia il centro della corazzzata
-                if (Xi == Coordinate::getCentro(coordinateRandomattacco,defenceFieldCPU).at(0) && Yi == Coordinate::getCentro(coordinateRandomattacco,defenceFieldCPU).at(1))
+            nR = rand() % 12;
+            Yi = nR;
+            Xi = rand() % 12;
+
+            if (defenceFieldCPU[Xi][Yi] == 'C' && defenceFieldCPU[Xf][Yf] == 'C')
+            {
+
+                // controllo che sia il centro della corazzzata
+                if (numeri[Xi] == Coordinate::getCentro(coordinateRandomattacco, defenceFieldCPU).at(0) && Yi == Coordinate::getCentro(coordinateRandomattacco, defenceFieldCPU).at(1))
                 {
-                    attacco=1;
-                } 
-        }    
-       
-        
-    }while(attacco==0);
-    //coordinate origine
-    
+                    cout << "son qua\n";
+                    attacco = 1;
+                }
+
+                cout << "attacco: " << attacco << endl;
+            }
+
+        } while (attacco == 0);
+        nR = rand() % 12;
+        Xt = nR;
+        nC = rand() % 12;
+        Yt = nC;
+    }
+    // coordinate origine
+    // cout<<"coordinata Y "<<Yi<<endl;
+    ss << numeri[Xi] << Yi << " " << numeri[Xt] << Yt;
+    coordinateRandomattacco = ss.str();
+    cout << "XYorigin XYtarget | " << coordinateRandomattacco << endl;
     return coordinateRandomattacco;
-}
+}*/
+
+
+
+
+
