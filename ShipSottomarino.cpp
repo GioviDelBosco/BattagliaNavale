@@ -15,12 +15,14 @@ void ShipSottomarino::muoviECerca(char (&attackFieldPlayer)[12][12], char (&defe
 {
     vector<int> coordinataSpostamento = Coordinate::convertStringToInt(coordinata);
     // sposto la barca in modo semplice perche' e' dim 1
-    if (defenceFieldPlayer[coordinataSpostamento[2]][coordinataSpostamento[3]] == ' ')
+    if (defenceFieldPlayer[coordinataSpostamento[2]][coordinataSpostamento[3]] == '-')
     {
         defenceFieldPlayer[coordinataSpostamento[2]][coordinataSpostamento[3]] = 'E';
-        defenceFieldPlayer[coordinataSpostamento[0]][coordinataSpostamento[1]] = ' ';
+        defenceFieldPlayer[coordinataSpostamento[0]][coordinataSpostamento[1]] = '-';
+    }else if(defenceFieldPlayer[coordinataSpostamento[2]][coordinataSpostamento[3]]=='E'){
+        defenceFieldPlayer[coordinataSpostamento[2]][coordinataSpostamento[3]] = 'E';
     }else{
-        cout << "La casella non e' libera!!!"<<endl;
+        cout << "La casella non e' libera o c'e' gia' un sottomarino!!!"<<endl;
     }
 
     for (int i = 0; i < 5; i++) // linea
@@ -29,7 +31,7 @@ void ShipSottomarino::muoviECerca(char (&attackFieldPlayer)[12][12], char (&defe
         {
             int x = coordinataSpostamento[0] - 3 + i;
             int y = coordinataSpostamento[1] - 2 + c;
-            if (defenceFieldCPU[x][y] != ' ')
+            if (defenceFieldCPU[x][y] != '-')
             {
                 attackFieldPlayer[x][y] = 'Y';
             }

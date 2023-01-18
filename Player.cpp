@@ -21,7 +21,7 @@ void Player::piazzaBarca(int flag, char (&defenceFieldPlayer)[12][12], string co
     switch (flag)
     {
 
-    // corazzata  
+    // corazzata
     case 0:
         // se le Y nella mappa sono le stesse, scrive solo nelle X
         if (listacoordinate[1] == listacoordinate[3])
@@ -82,7 +82,7 @@ void Player::piazzaBarca(int flag, char (&defenceFieldPlayer)[12][12], string co
 void Player::muoviBarca(char (&defenceFieldPlayer)[12][12], string coordinata)
 {
     string nuovacoordinata;
-    bool state=1;
+    bool state = 1;
     vector<int> coordinataCentroBarca = Coordinate::getCentro(coordinata, defenceFieldPlayer);
     vector<int> posizioneArrivo = Coordinate::convertStringToInt(coordinata);
     // se sono nella stessa riga
@@ -91,61 +91,57 @@ void Player::muoviBarca(char (&defenceFieldPlayer)[12][12], string coordinata)
         // se mi sposto verso destra
         if (coordinataCentroBarca[1] < posizioneArrivo[3])
         {
-         
-                defenceFieldPlayer[posizioneArrivo[2]][posizioneArrivo[3]-1] = 'S';
-                defenceFieldPlayer[posizioneArrivo[2]][posizioneArrivo[3]] = 'S';
-                defenceFieldPlayer[posizioneArrivo[2]][posizioneArrivo[3]+1] = 'S';
-                
-                //pulizia posizione vecchia
-                defenceFieldPlayer[coordinataCentroBarca[0]][coordinataCentroBarca[1] - 1] = ' ';
-                defenceFieldPlayer[coordinataCentroBarca[0]][coordinataCentroBarca[1]]= ' ';
-                defenceFieldPlayer[coordinataCentroBarca[0]][coordinataCentroBarca[1] + 1] = ' ';
-            
-        //se mi sposto verso sinistra
-        }else if(coordinataCentroBarca[1] > posizioneArrivo[3]){
 
-                defenceFieldPlayer[posizioneArrivo[2]][posizioneArrivo[3]-1] = 'S';
-                defenceFieldPlayer[posizioneArrivo[2]][posizioneArrivo[3]] = 'S';
-                defenceFieldPlayer[posizioneArrivo[2]][posizioneArrivo[3]+1] = 'S';
+            defenceFieldPlayer[posizioneArrivo[2]][posizioneArrivo[3] - 1] = 'S';
+            defenceFieldPlayer[posizioneArrivo[2]][posizioneArrivo[3]] = 'S';
+            defenceFieldPlayer[posizioneArrivo[2]][posizioneArrivo[3] + 1] = 'S';
 
-                //pulizia posizione vecchia
-                defenceFieldPlayer[coordinataCentroBarca[0]][coordinataCentroBarca[1] - 1] = ' ';
-                defenceFieldPlayer[coordinataCentroBarca[0]][coordinataCentroBarca[1]]= ' ';
-                defenceFieldPlayer[coordinataCentroBarca[0]][coordinataCentroBarca[1] + 1] = ' ';
-            
+            // pulizia posizione vecchia
+            defenceFieldPlayer[coordinataCentroBarca[0]][coordinataCentroBarca[1] - 1] = '-';
+            defenceFieldPlayer[coordinataCentroBarca[0]][coordinataCentroBarca[1]] = '-';
+            defenceFieldPlayer[coordinataCentroBarca[0]][coordinataCentroBarca[1] + 1] = '-';
+
+            // se mi sposto verso sinistra
         }
-    }
-    else if (coordinataCentroBarca[1] == posizioneArrivo[3]){  // se sono nella stessa colonna
-         // se mi sposto verso il basso
-        if (coordinataCentroBarca[0] < posizioneArrivo[2])
+        else if (coordinataCentroBarca[1] > posizioneArrivo[3])
         {
-            
-                defenceFieldPlayer[posizioneArrivo[2]-1][posizioneArrivo[3]] = 'S';
-                defenceFieldPlayer[posizioneArrivo[2]][posizioneArrivo[3]] = 'S';
-                defenceFieldPlayer[posizioneArrivo[2]+1][posizioneArrivo[3]] = 'S';
-    
-                //pulizia posizione vecchia
-                defenceFieldPlayer[coordinataCentroBarca[0]-1][coordinataCentroBarca[1]] = ' ';
-                defenceFieldPlayer[coordinataCentroBarca[0]][coordinataCentroBarca[1]]= ' ';
-                defenceFieldPlayer[coordinataCentroBarca[0]+1][coordinataCentroBarca[1]] = ' ';
+
+            defenceFieldPlayer[posizioneArrivo[2]][posizioneArrivo[3] - 1] = 'S';
+            defenceFieldPlayer[posizioneArrivo[2]][posizioneArrivo[3]] = 'S';
+            defenceFieldPlayer[posizioneArrivo[2]][posizioneArrivo[3] + 1] = 'S';
+
+            // pulizia posizione vecchia
+            defenceFieldPlayer[coordinataCentroBarca[0]][coordinataCentroBarca[1] - 1] = '-';
+            defenceFieldPlayer[coordinataCentroBarca[0]][coordinataCentroBarca[1]] = '-';
+            defenceFieldPlayer[coordinataCentroBarca[0]][coordinataCentroBarca[1] + 1] = '-';
         }
-        else if(coordinataCentroBarca[0] > posizioneArrivo[2]){
-                    
-                defenceFieldPlayer[posizioneArrivo[2]-1][posizioneArrivo[3]] = 'S';
+        else if (coordinataCentroBarca[1] == posizioneArrivo[3])
+        {   // se sono nella stessa colonna
+            // se mi sposto verso il basso
+            if (coordinataCentroBarca[0] < posizioneArrivo[2])
+            {
+
+                defenceFieldPlayer[posizioneArrivo[2] - 1][posizioneArrivo[3]] = 'S';
                 defenceFieldPlayer[posizioneArrivo[2]][posizioneArrivo[3]] = 'S';
-                defenceFieldPlayer[posizioneArrivo[2]+1][posizioneArrivo[3]] = 'S';
-    
-                //pulizia posizione vecchia
-                defenceFieldPlayer[coordinataCentroBarca[0]-1][coordinataCentroBarca[1]] = ' ';
-                defenceFieldPlayer[coordinataCentroBarca[0]][coordinataCentroBarca[1]]= ' ';
-                defenceFieldPlayer[coordinataCentroBarca[0]+1][coordinataCentroBarca[1]] = ' ';
+                defenceFieldPlayer[posizioneArrivo[2] + 1][posizioneArrivo[3]] = 'S';
 
-        }   
-        
+                // pulizia posizione vecchia
+                defenceFieldPlayer[coordinataCentroBarca[0] - 1][coordinataCentroBarca[1]] = '-';
+                defenceFieldPlayer[coordinataCentroBarca[0]][coordinataCentroBarca[1]] = '-';
+                defenceFieldPlayer[coordinataCentroBarca[0] + 1][coordinataCentroBarca[1]] = '-';
+            }
+            else if (coordinataCentroBarca[0] > posizioneArrivo[2])
+            {
+
+                defenceFieldPlayer[posizioneArrivo[2] - 1][posizioneArrivo[3]] = 'S';
+                defenceFieldPlayer[posizioneArrivo[2]][posizioneArrivo[3]] = 'S';
+                defenceFieldPlayer[posizioneArrivo[2] + 1][posizioneArrivo[3]] = 'S';
+
+                // pulizia posizione vecchia
+                defenceFieldPlayer[coordinataCentroBarca[0] - 1][coordinataCentroBarca[1]] = '-';
+                defenceFieldPlayer[coordinataCentroBarca[0]][coordinataCentroBarca[1]] = '-';
+                defenceFieldPlayer[coordinataCentroBarca[0] + 1][coordinataCentroBarca[1]] = '-';
+            }
+        }
     }
-
-}
-void Player::usaBarca()
-{
-
 }

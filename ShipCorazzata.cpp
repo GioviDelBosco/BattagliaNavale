@@ -37,11 +37,11 @@ void ShipCorazzata::fuoco(string comando, char (&attackFieldPlayer)[12][12], cha
     if (coordinataCX == Coordinate::getCentro(comando,defenceFieldPlayer).at(0) && coordinataCY == Coordinate::getCentro(comando,defenceFieldPlayer).at(1))
     {
 
-        if (defenceFieldCPU[coordinateX][coordinateY] != ' ')
+        if (defenceFieldCPU[coordinateX][coordinateY] != '-')
         {
             attackFieldPlayer[coordinateX][coordinateY] = 'X';
         }
-        else if (defenceFieldCPU[coordinateX][coordinateY] == ' ')
+        else if (defenceFieldCPU[coordinateX][coordinateY] == '-')
         {
             attackFieldPlayer[coordinateX][coordinateY] = 'O';
         }

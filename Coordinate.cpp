@@ -108,44 +108,62 @@ vector<int> Coordinate::getCentro(string coordinata, char (&defenceFieldPlayer)[
 // da rivedere un attimo perche' esegue tutti e due gli else in caso di barca verticale
 
 bool Coordinate::posOccupataLine(int Xi, int Yi, int Yf, char (&defenceFieldCPU)[12][12]){
+ 
 
     char ASCII_C='C';
     char ASCII_S='S';
     char ASCII_E='E';
 
     bool posOccupata = 0;
-
-    for(int i=Yi;i<Yf+1;i++)
+ 
+    for(int i=Yi;i<=Yf;i++)
     {
         
-        if(defenceFieldCPU[Xi][i] == ASCII_C || defenceFieldCPU[Xi][i] == ASCII_S || defenceFieldCPU[Xi][i] == ASCII_E) { 
-            posOccupata=1;
-           // break;
+        if(defenceFieldCPU[Xi][i] != '-') { 
+            posOccupata=1;  
         }
-        else {
-            posOccupata=0;
+    
+        if(defenceFieldCPU[Xi][i] == 'C') { 
+            posOccupata=1;  
         }
+        if(defenceFieldCPU[Xi][i] == 'S') { 
+            posOccupata=1;  
+        }
+        if(defenceFieldCPU[Xi][i] == 'E') { 
+            posOccupata=1;  
+        }
+
+        
+        
     }
+    
     return posOccupata;
 }
 bool Coordinate::posOccupataCol(int Yi, int Xi, int Xf, char (&defenceFieldCPU)[12][12]){
-
+ 
     char ASCII_C='C';
     char ASCII_S='S';
     char ASCII_E='E';
 
-    bool posOccupata = 0;
+    bool posOccupata = 0;   
+    
 
-    for(int i=Xi;i<Xi+1;i++)
+    for(int i=Xi;i<=Xf;i++)
     {
         
-        if(defenceFieldCPU[i][Yi] == ASCII_C || defenceFieldCPU[i][Yi] == ASCII_S || defenceFieldCPU[i][Yi] == ASCII_E) { 
-            posOccupata=1;
-            //break;
+        if(defenceFieldCPU[i][Yi] != '-') { 
+            posOccupata=1;  
         }
-        else {
-            posOccupata=0;
+         if(defenceFieldCPU[Xi][i] == 'C') { 
+            posOccupata=1;  
+        }
+        if(defenceFieldCPU[Xi][i] == 'S') { 
+            posOccupata=1;  
+        }
+        if(defenceFieldCPU[Xi][i] == 'E') { 
+            posOccupata=1;  
         }
     }
+    
     return posOccupata;
 }
