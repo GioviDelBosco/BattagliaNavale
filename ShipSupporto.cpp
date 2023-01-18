@@ -11,36 +11,65 @@ ShipSupporto::ShipSupporto(){
 };
 void ShipSupporto::muoviERipara(string comando, char (&defenceFieldPlayer)[12][12]){
 
-    /*vector<int> listaCoordinate = Coordinate::convertStringToInt(comando);
-  
-   int coordinataXi = listaCoordinate.at(0);
-   int coordinataYi = listaCoordinate.at(1);
-   int coordinataXf = listaCoordinate.at(2);
-   int coordinataYf = listaCoordinate.at(3);
+    string nuovacoordinata;
+    bool state = 1;
+    vector<int> coordinataCentroBarca = Coordinate::getCentro(comando, defenceFieldPlayer);
+    vector<int> posizioneArrivo = Coordinate::convertStringToInt(comando);
+    // se sono nella stessa riga
+    if (coordinataCentroBarca[0] == posizioneArrivo[2])
+    {
+        // se mi sposto verso destra o sinistra
 
-   if (coordinataXi == Coordinate::getCentro(comando,defenceFieldPlayer).at(0) &&
-    coordinataYi == Coordinate::getCentro(comando,defenceFieldPlayer).at(1)){
+            defenceFieldPlayer[posizioneArrivo[2]][posizioneArrivo[3] - 1] = 'S';
+            defenceFieldPlayer[posizioneArrivo[2]][posizioneArrivo[3]] = 'S';
+            defenceFieldPlayer[posizioneArrivo[2]][posizioneArrivo[3] + 1] = 'S';
 
-        if()
+            // pulizia posizione vecchia
+            defenceFieldPlayer[coordinataCentroBarca[0]][coordinataCentroBarca[1] - 1] = '-';
+            defenceFieldPlayer[coordinataCentroBarca[0]][coordinataCentroBarca[1]] = '-';
+            defenceFieldPlayer[coordinataCentroBarca[0]][coordinataCentroBarca[1] + 1] = '-';
+
+            //ripara area 3x3
+            defenceFieldPlayer[posizioneArrivo[2] - 1][posizioneArrivo[3] - 1] = ripara(posizioneArrivo.at((2)-1),posizioneArrivo.at((3)-1),defenceFieldPlayer);
+            defenceFieldPlayer[posizioneArrivo[2] - 1][posizioneArrivo[3]] = ripara(posizioneArrivo.at((2)-1),posizioneArrivo.at((3)),defenceFieldPlayer);
+            defenceFieldPlayer[posizioneArrivo[2] - 1][posizioneArrivo[3] + 1] = ripara(posizioneArrivo.at((2)-1),posizioneArrivo.at((3)+1),defenceFieldPlayer);
+
+            defenceFieldPlayer[posizioneArrivo[2] + 1][posizioneArrivo[3] - 1] = ripara(posizioneArrivo.at((2)+1),posizioneArrivo.at((3)-1),defenceFieldPlayer);
+            defenceFieldPlayer[posizioneArrivo[2] + 1][posizioneArrivo[3]] = ripara(posizioneArrivo.at((2)+1),posizioneArrivo.at((3)),defenceFieldPlayer);
+            defenceFieldPlayer[posizioneArrivo[2] + 1][posizioneArrivo[3] + 1] = ripara(posizioneArrivo.at((2)+1),posizioneArrivo.at((3)+1),defenceFieldPlayer);
+
+    }
+        // se sono nella stessa colonna
+    else if (coordinataCentroBarca[1] == posizioneArrivo[3])
+    {   
+        // se mi sposto verso il basso o verso l'alto
+
+            defenceFieldPlayer[posizioneArrivo[2] - 1][posizioneArrivo[3]] = 'S';
+            defenceFieldPlayer[posizioneArrivo[2]][posizioneArrivo[3]] = 'S';
+            defenceFieldPlayer[posizioneArrivo[2] + 1][posizioneArrivo[3]] = 'S';
+
+            // pulizia posizione vecchia
+            defenceFieldPlayer[coordinataCentroBarca[0] - 1][coordinataCentroBarca[1]] = '-';
+            defenceFieldPlayer[coordinataCentroBarca[0]][coordinataCentroBarca[1]] = '-';
+            defenceFieldPlayer[coordinataCentroBarca[0] + 1][coordinataCentroBarca[1]] = '-';
+
+            //ripara area 3x3
+            defenceFieldPlayer[posizioneArrivo[2] - 1][posizioneArrivo[3] - 1] = ripara(posizioneArrivo.at((2)-1),posizioneArrivo.at((3)-1),defenceFieldPlayer);
+            defenceFieldPlayer[posizioneArrivo[2]][posizioneArrivo[3] - 1] = ripara(posizioneArrivo.at((2)),posizioneArrivo.at((3)-1),defenceFieldPlayer);
+            defenceFieldPlayer[posizioneArrivo[2] + 1][posizioneArrivo[3] - 1] = ripara(posizioneArrivo.at((2)+1),posizioneArrivo.at((3)-1),defenceFieldPlayer);
+
+            defenceFieldPlayer[posizioneArrivo[2] - 1][posizioneArrivo[3] + 1] = ripara(posizioneArrivo.at((2)-1),posizioneArrivo.at((3)+1),defenceFieldPlayer);
+            defenceFieldPlayer[posizioneArrivo[2]][posizioneArrivo[3] + 1] = ripara(posizioneArrivo.at((2)),posizioneArrivo.at((3)+1),defenceFieldPlayer);
+            defenceFieldPlayer[posizioneArrivo[2] + 1][posizioneArrivo[3] + 1] = ripara(posizioneArrivo.at((2)+1),posizioneArrivo.at((3)+1),defenceFieldPlayer);
         
     }
+    
     else{
-        cout<<"non hai inserito il centro della nave corretto\n";
+        cout<<"Coordinate non valide"<<endl;
     }
 
-        if (defenceFieldCPU[coordinateX][coordinateY] != ' ')
-        {
-            attackFieldPlayer[coordinateX][coordinateY] = 'X';
-        }
-        else if (defenceFieldCPU[coordinateX][coordinateY] == ' ')
-        {
-            attackFieldPlayer[coordinateX][coordinateY] = 'O';
-        }*/
-   
-
-
-
 }
+
 bool ShipSupporto::checkPosArrivoLine(string coordinata, char (&defenceFieldPlayer)[12][12]){
     
     bool isCorrect = 1;
@@ -73,6 +102,10 @@ bool ShipSupporto::checkPosArrivoCol(string coordinata, char (&defenceFieldPlaye
     return isCorrect;
 }
 
-void inserisciSupporto(){
+char ShipSupporto::ripara(int posArrivoX, int posArrivoY, char (&defenceFieldPlayer)[12][12]){
+
+    if(defenceFieldPlayer[posArrivoX][posArrivoY] =='c'){ return 'C'; }
+    if(defenceFieldPlayer[posArrivoX][posArrivoY] =='s'){ return 'S'; }
+    if(defenceFieldPlayer[posArrivoX][posArrivoY] =='e'){ return 'E'; }
 
 }

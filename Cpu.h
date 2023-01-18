@@ -10,6 +10,7 @@ class Cpu{
     public:
         Cpu();
         string getCoordinateRND(int flag, char(&defenceFieldCPU)[12][12]);
+        string getCoordinataRNDattacco(char (&defenceFieldCPU)[12][12]);
     private:
         
 };

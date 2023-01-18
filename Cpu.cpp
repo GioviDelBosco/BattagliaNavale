@@ -31,7 +31,6 @@ string Cpu::getCoordinateRND(int flag, char (&defenceFieldCPU)[12][12])
     int nR, nC, Yi, Yf, num;
     int Xi, Xf;
 
-    // bool occ=1;
 
     Coordinate casella;
 
@@ -205,4 +204,42 @@ string Cpu::getCoordinateRND(int flag, char (&defenceFieldCPU)[12][12])
         }
         }
     return coordinateRandom;
+}
+
+
+string Cpu::getCoordinataRNDattacco(char (&defenceFieldCPU)[12][12]){
+    int Xi,Yi;  //Xi,Yi => origine fuoco
+    int Xt,Yt;  //Xt,Y => target fuoco
+    int nR,nC;
+    bool attacco=0;
+    ostringstream ss;
+    string coordinateRandomattacco;
+    do{
+        nR=rand()%12;
+        Xi=nR;
+        nC=rand()%12;
+        Yi=nC;
+
+        //coordinate target
+        nR=rand()%12;
+        Xt=nR;
+        nC=rand()%12;
+        Yt=nC;
+        if(defenceFieldCPU[Xi][Yi]=='C'){
+
+            ss << numeri[Xi] << Yi << " " << numeri[Xt] << Yt;
+            coordinateRandomattacco = ss.str();
+           
+             //controllo che sia il centro della corazzzata
+                if (Xi == Coordinate::getCentro(coordinateRandomattacco,defenceFieldCPU).at(0) && Yi == Coordinate::getCentro(coordinateRandomattacco,defenceFieldCPU).at(1))
+                {
+                    attacco=1;
+                } 
+        }    
+       
+        
+    }while(attacco==0);
+    //coordinate origine
+    
+    return coordinateRandomattacco;
 }

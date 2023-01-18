@@ -50,7 +50,8 @@ int main()
     int flag = 0; // varaibile check per corazzata,supporto,sottomarino
     // creazione oggetti + variabili
     ShipCorazzata naveCorazzata;
-    ShipSupporto naveDiSupporto;
+    ShipCorazzata corazzataNemica;
+    ShipSupporto supporto;
     ShipSottomarino sottomarino;
 
     string match, avvio;
@@ -145,6 +146,7 @@ int main()
         {
             coordinataPlayer2 = Pc.getCoordinateRND(flag, defenceFieldComputer1);
         }
+        defField.stampaCampoDifesa(defenceFieldComputer1);
         do
         {
             cout << "Inserire: \n"
@@ -178,8 +180,8 @@ int main()
                     {
                         cout << "Inserisci coordinate per la nave di supporto" << endl;
                         getline(std::cin, comando);
-                        azione.muoviBarca(defenceFieldPlayer, comando);
-                    } while (naveDiSupporto.checkPosArrivoLine(comando, defenceFieldPlayer) == 0 || naveDiSupporto.checkPosArrivoCol(comando, defenceFieldPlayer) == 0);
+                        supporto.muoviERipara(comando,defenceFieldPlayer);
+                    } while (supporto.checkPosArrivoLine(comando, defenceFieldPlayer) == 0 || supporto.checkPosArrivoCol(comando, defenceFieldPlayer) == 0);
                 }
                 else if (supportoOSottomarino == "2")
                 {
@@ -189,16 +191,20 @@ int main()
                 }
                 // qua
                 cout << " " << endl;
+
+                //azione nemico
+                
             }
+                coordinataPlayer2=Pc.getCoordinataRNDattacco(defenceFieldComputer1);//passo solo matrice
+                corazzataNemica.fuocoRandom(coordinataPlayer2,attackFieldComputer1,defenceFieldPlayer,defenceFieldComputer1);
+                atkField.stampaCampoAttacco(attackFieldComputer1);
         } while (win == 0);
     }
 
     if (game == 2)
     {
         //-----------------------INSERIMENTO NAVE 1 RANDOM----------------------------------------
-        do
-        {
-            cout << "Inserimento random 1\n";
+        cout << "Inserimento random 1\n";
 
             flag = 0;
             fout << "Corazzata nemica:\n";
@@ -238,6 +244,11 @@ int main()
                 coordinataPlayer2 = Pc.getCoordinateRND(flag, defenceFieldComputer2);
             }
             defField.stampaCampoDifesa(defenceFieldComputer2);
+        do
+        {
+            coordinataPlayer2=Pc.getCoordinataRNDattacco(defenceFieldComputer1);//passo solo matrice
+            corazzataNemica.fuocoRandom(coordinataPlayer2,attackFieldComputer1,defenceFieldComputer2,defenceFieldComputer1);
+            atkField.stampaCampoAttacco(attackFieldComputer1);
         } while (turni < 10);
     }
     return 0;

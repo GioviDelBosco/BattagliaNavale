@@ -11,11 +11,9 @@ class Player{
         Player();
         //provare  a fare piu "piazza barca" per ogni barca // vedere di semplificarne con uno
         void piazzaBarca(int flag, char (&defenceFieldPlayer)[12][12], string coordinata);
-        void muoviBarca(char (&defenceFieldPlayer)[12][12], string coordinata);
 
     private:
         
-
 };
 #endif
 /*

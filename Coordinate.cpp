@@ -167,3 +167,43 @@ bool Coordinate::posOccupataCol(int Yi, int Xi, int Xf, char (&defenceFieldCPU)[
     
     return posOccupata;
 }
+
+
+
+bool Coordinate::getCentroRandom(bool centro,string coordinata, char (&defenceFieldPlayer)[12][12])
+{
+    vector<int> coordinataCentro = Coordinate::convertStringToInt(coordinata);
+    vector<int> coordinataFinale;
+    centro=0;
+    // se la corazzata e' messa in orizzontale
+        if (defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == 'C')
+        {
+            if (defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]][(coordinataCentro[1]) + 1] && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1] + 2] && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1] - 1] && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1] - 2]
+                // nave in verticale
+                || (defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0] + 1][coordinataCentro[1]] && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0] + 2][coordinataCentro[1]] && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0] - 1][coordinataCentro[1]] && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0] - 2][coordinataCentro[1]]))
+            {
+
+                coordinataFinale.push_back(coordinataCentro[0]);
+                coordinataFinale.push_back(coordinataCentro[1]);
+                centro=1;
+                return centro;
+            }
+        }
+        else if (defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == 'S')
+        {
+            if (defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]][(coordinataCentro[1]) + 1] && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1] - 1] || (defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0] + 1][coordinataCentro[1]] && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0] - 1][coordinataCentro[1]]))
+            {
+                coordinataFinale.push_back(coordinataCentro[0]);
+                coordinataFinale.push_back(coordinataCentro[1]);
+                centro=1;
+                return centro;
+            }
+        }
+        else if (defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == 'E')
+        {
+            coordinataFinale.push_back(coordinataCentro[0]);
+            coordinataFinale.push_back(coordinataCentro[1]);
+            centro=1;
+            return centro;
+        }
+    }
