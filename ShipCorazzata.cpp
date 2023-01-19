@@ -2,6 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include <time.h>
 
 #include "ShipCorazzata.h"
 #include "Coordinate.h"
@@ -15,6 +16,7 @@ ShipCorazzata::ShipCorazzata()
 {
     dimensione = 5;
     corazza = 5;
+    srand((unsigned int)time(NULL));
 };
 
 /*
@@ -62,7 +64,8 @@ void ShipCorazzata::fuoco(string comando, char (&attackFieldPlayer)[12][12], cha
 }
 void ShipCorazzata::fuocoRandom(vector<char> coordinateCentroRnd,char (&attackFieldCPU)[12][12], char (&defenceFieldPlayer)[12][12], char (&defenceFieldCPU)[12][12]){
     
-    int Xt, Yt = 0; //coordinate target
+    int Xt, Yt; //coordinate target
+    char XT,YT;
     int coordinateX = 0;
     int coordinateY = 0;
     ostringstream ss;
@@ -70,18 +73,21 @@ void ShipCorazzata::fuocoRandom(vector<char> coordinateCentroRnd,char (&attackFi
     char coordinataCY = coordinateCentroRnd.at(1);
     //target
     Xt=rand()%12;
+    XT='A'+Xt;
     Yt=rand()%12;
-    
-    
-    ss << coordinataCX << coordinataCY << " "<< Xt << Yt;
-    string comando;
+    if (Yt == 0){Yt = 1;}
+    //YT=Yt;
+    cout<<"X target: "<<Xt<<endl;
+    cout<<"Y target: "<<Yt<<endl;
+    ss << coordinataCX << coordinataCY << " "<< XT << Yt;
+    string comando = ss.str();
+    cout<<comando<<endl;
     vector<int> listaCoordinate = Coordinate::convertStringToInt(comando);
     coordinateY = listaCoordinate.at(3);
     coordinateX = listaCoordinate.at(2);
     coordinataCY = listaCoordinate.at(1);
     coordinataCX = listaCoordinate.at(0);
 
-    
 
         if (defenceFieldPlayer[coordinateX][coordinateY] != '-')
         {
@@ -100,34 +106,3 @@ void ShipCorazzata::fuocoRandom(vector<char> coordinateCentroRnd,char (&attackFi
             attackFieldCPU[coordinateX][coordinateY] = 'O';
         }
 }
-
-
-
-
-/*void ShipCorazzata::fuocoRandom(string comando,char (&attackFieldCPU)[12][12], char (&defenceFieldPlayer)[12][12], char (&defenceFieldCPU)[12][12]){
-    
-    int coordinateY = 0;
-    int coordinateX = 0;
-    int coordinataCX = 0;
-    int coordinataCY = 0;
-    vector<int> listaCoordinate = Coordinate::convertStringToInt(comando);
-    coordinateY = listaCoordinate.at(3);
-    coordinateX = listaCoordinate.at(2);
-    coordinataCY = listaCoordinate.at(1);
-    coordinataCX = listaCoordinate.at(0);
-
-    if (coordinataCX == Coordinate::getCentro(comando,defenceFieldCPU).at(0) && coordinataCY == Coordinate::getCentro(comando,defenceFieldCPU).at(1))
-    {
-
-        if (defenceFieldPlayer[coordinateX][coordinateY] != '-')
-        {
-            attackFieldCPU[coordinateX][coordinateY] = 'X';
-        }
-        else if (defenceFieldPlayer[coordinateX][coordinateY] == '-')
-        {
-            attackFieldCPU[coordinateX][coordinateY] = 'O';
-        }
-    }else{
-        cout<<"Hai inserito delle coordinate sbagliate";
-    }
-}*/

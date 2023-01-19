@@ -25,15 +25,19 @@ int main()
     char defenceFieldPlayer[LINEdef][COLdef];
     char attackFieldPlayer[LINEatk][COLatk];
     int cont = 0;
-    char defenceFieldComputer1[LINEdef][COLdef];
-    char attackFieldComputer1[LINEatk][COLatk];
-    char defenceFieldComputer2[LINEdef][COLdef];
-    char attackFieldComputer2[LINEatk][COLatk];
+    char defenceFieldComputer1[LINEdef][COLdef];//usato con Plaver vs Computer
+    char attackFieldComputer1[LINEatk][COLatk];//usato con Plaver vs Computer
+    
+    char defenceFieldComputer2[LINEdef][COLdef];//usato con computer vs Computer
+    char attackFieldComputer2[LINEatk][COLatk];//usato con computer vs Computer
+
+
     string supportoOSottomarino = "0";
     int sceltaPartita;
     int scelta, turni = 0;
     string comando;
     string mossa;
+    int naviPlayer1=8,naviPlayer2=8; 
 
     for (int i = 0; i < LINEdef; i++)
     {
@@ -133,7 +137,7 @@ int main()
 
         flag = 0;
         fout << "Corazzata nemica:\n";
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 1; i++)
         {
             coordinataPlayer2 = Pc.getCoordinateRND(flag, defenceFieldComputer1);
             coordinateCorazzate.push_back(coordinataPlayer2);
@@ -141,15 +145,17 @@ int main()
 
         flag = 1;
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 1; i++)
         {
             coordinataPlayer2 = Pc.getCoordinateRND(flag, defenceFieldComputer1);
+            coordinateCorazzate.push_back(coordinataPlayer2);
         }
         flag = 2;
         fout << "Sottomarino nemica:\n";
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 1; i++)
         {
             coordinataPlayer2 = Pc.getCoordinateRND(flag, defenceFieldComputer1);
+            coordinateCorazzate.push_back(coordinataPlayer2);
         }
         defField.stampaCampoDifesa(defenceFieldComputer1);
         do
@@ -172,6 +178,8 @@ int main()
                 getline(std::cin, comando);
                 naveCorazzata.fuoco(comando, attackFieldPlayer, defenceFieldComputer1, defenceFieldPlayer);
                 atkField.stampaCampoAttacco(attackFieldPlayer);
+                //defField.stampaCampoDifesa(defenceFieldComputer1);
+                atkField.contaBarcheRimanenti(naviPlayer2,coordinateCorazzate,attackFieldComputer1);
             }
 
             //--------------------SPOSTA BARCA-------------------------------------
@@ -202,40 +210,52 @@ int main()
                 // azione nemico
             }
             //-----------------------FUOCO NEMICO----------------------------
-            cout<<"fuoco random\n";
             
-            naveCorazzata.fuocoRandom(getCentroRandom(coordinateCorazzate),attackFieldComputer1,defenceFieldPlayer,defenceFieldComputer1);
-            atkField.stampaCampoAttacco(attackFieldComputer1);
+    
+            naveCorazzata.fuocoRandom(posizione.getCentroRandom(coordinateCorazzate),attackFieldComputer1,defenceFieldPlayer,defenceFieldComputer1);
+            atkField.stampaCampoAttacco(attackFieldComputer1);    
+            if(naviPlayer1==0){
+                cout<<"HAI PERSO!!!\n LE TUE NAVI SONO STATE TUTTE COLPITE\n";
+                win=1;
+            }
+            else if(naviPlayer2==0){
+                cout<<"COMPLIMENTI HAI VINTO!!!\n HAI COLPITO TUTTE LE NAVI\n";
+                win=1;
+            }
+            /*cout<<"fuoco random\n";
+            naveCorazzata.fuocoRandom(posizione.getCentroRandom(coordinateCorazzate),attackFieldComputer1,defenceFieldPlayer,defenceFieldComputer1);
+            atkField.stampaCampoAttacco(attackFieldComputer1);*/
         } while (win == 0);
-*/  }
-
-
-
+    }
+    
+    
 
 
 
     //PC vs PC
-    /*if (game == 2)
+    if (game == 2)
     {
         //-----------------------INSERIMENTO NAVE 1 RANDOM----------------------------------------
-        cout << "Inserimento random 1\n";
-
+        
         flag = 0;
-        fout << "Corazzata nemica:\n";
+        cout << "Corazzata nemica:\n";
         for (int i = 0; i < 3; i++)
         {
             coordinataPlayer2 = Pc.getCoordinateRND(flag, defenceFieldComputer1);
+            coordinateCorazzate.push_back(coordinataPlayer2);
         }
         flag = 1;
         for (int i = 0; i < 3; i++)
         {
             coordinataPlayer2 = Pc.getCoordinateRND(flag, defenceFieldComputer1);
+            coordinateCorazzate.push_back(coordinataPlayer2);
         }
         flag = 2;
         fout << "Sottomarino nemica:\n";
         for (int i = 0; i < 2; i++)
         {
             coordinataPlayer2 = Pc.getCoordinateRND(flag, defenceFieldComputer1);
+            coordinateCorazzate.push_back(coordinataPlayer2);
         }
         defField.stampaCampoDifesa(defenceFieldComputer1);
 
@@ -245,26 +265,54 @@ int main()
         for (int i = 0; i < 3; i++)
         {
             coordinataPlayer2 = Pc.getCoordinateRND(flag, defenceFieldComputer2);
+            coordinateCorazzate.push_back(coordinataPlayer2);
         }
         flag = 1;
         for (int i = 0; i < 3; i++)
         {
             coordinataPlayer2 = Pc.getCoordinateRND(flag, defenceFieldComputer2);
+            coordinateCorazzate.push_back(coordinataPlayer2);
         }
         flag = 2;
         fout << "Sottomarino nemica:\n";
         for (int i = 0; i < 2; i++)
         {
             coordinataPlayer2 = Pc.getCoordinateRND(flag, defenceFieldComputer2);
+            coordinateCorazzate.push_back(coordinataPlayer2);
         }
         defField.stampaCampoDifesa(defenceFieldComputer2);
         do
         {
-            coordinataPlayer2 = Pc.getCoordinataRNDattacco(defenceFieldComputer1); // passo solo matrice
-            corazzataNemica.fuocoRandom(coordinataPlayer2, attackFieldComputer1, defenceFieldComputer2, defenceFieldComputer1);
+            //----------------azione nave 1--------------
+            naveCorazzata.fuocoRandom(posizione.getCentroRandom(coordinateCorazzate),attackFieldComputer1,defenceFieldComputer2,defenceFieldComputer1);
             atkField.stampaCampoAttacco(attackFieldComputer1);
+
+            //---------------azione nave 2--------------
+            naveCorazzata.fuocoRandom(posizione.getCentroRandom(coordinateCorazzate),attackFieldComputer2,defenceFieldComputer1,defenceFieldComputer2);
+            atkField.stampaCampoAttacco(attackFieldComputer2);
+            turni++;
         } while (turni < 10);
-    }*/
+    }
     return 0;
 }
 
+
+
+
+
+
+/*
+-------------------DA FARE------------------
+Sottomarino e supporto per random 
+controllo affondata e vittoria player 1 ( utente vs pc)
+
+controllo centro per coordinata sbagliata del player
+
+controllo per spazi già occupati vector 
+cmake 
+random engine 
+
+test vm 
+consegna 
+
+*/

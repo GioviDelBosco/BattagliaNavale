@@ -4,9 +4,11 @@
 #include <sstream>
 #include <cstdlib>
 #include <time.h>
+#include <random>
 #include "Cpu.h"
 #include "Player.h"
 #include "Coordinate.h"
+
 
 using namespace std;
 
@@ -21,12 +23,16 @@ Cpu::Cpu()
 
 string Cpu::getCoordinateRND(int flag, char (&defenceFieldCPU)[12][12])
 {
+    // Crea un device random e lo usa per generare un seed random
+    std::random_device myRandomDevice;
+    unsigned seed = myRandomDevice();
+
+    //inizializzazione di default_random_engine
+    std::default_random_engine myRandomEngine(seed);
 
     string coordinateRandom;
     int RoC;
-    char ASCII_C = 'C';
-    char ASCII_S = 'S';
-    char ASCII_E = 'E';
+  
     ostringstream ss; // riga o colonna casuale
     int nR, nC, Yi, Yf, num;
     int Xi, Xf;
@@ -36,17 +42,22 @@ string Cpu::getCoordinateRND(int flag, char (&defenceFieldCPU)[12][12])
     if (flag == 0)
     {
 
-        RoC = rand() % 2;
+       // RoC = rand() % 2;
+       uniform_int_distribution<int> myUnifIntDist(0, 1);
+        RoC = myUnifIntDist(myRandomEngine);
         if (RoC == 0)
         {
             // same riga  -----> orizzontale
             do
             {
-                nR = rand() % 12;
+                //nR = rand() % 12;
+               uniform_int_distribution<int> myUnifIntDist(0, 11);
+                nR = myUnifIntDist(myRandomEngine);
                 Xi = nR;
                 do
                 {
-                    nC = rand() % 12;
+                   // nC = rand() % 12;
+                   nC = myUnifIntDist(myRandomEngine);
                 } while (nC > 7);
                 Yi = nC;
                 Yf = Yi + 4;
@@ -64,15 +75,19 @@ string Cpu::getCoordinateRND(int flag, char (&defenceFieldCPU)[12][12])
 
             azione.piazzaBarca(flag, defenceFieldCPU, coordinateRandom);
         }
+
         else if (RoC == 1)
         {
             do
             {
-                Yi = rand() % 12;
+                //Yi = rand() % 12;
+               uniform_int_distribution<int> myUnifIntDist(0, 11);
+                Yi = myUnifIntDist(myRandomEngine);
                 Yf = Yi;
                 do
                 {
-                    nR = rand() % 12;
+                    //nR = rand() % 12;
+                    nR = myUnifIntDist(myRandomEngine);
                 } while (nR > 7);
                 Xi = nR;
                 Xf = Xi + 4;
@@ -94,17 +109,23 @@ string Cpu::getCoordinateRND(int flag, char (&defenceFieldCPU)[12][12])
 
     else if (flag == 1)
     {
-        RoC = rand() % 2;
+        // RoC = rand() % 2;
+       uniform_int_distribution<int> myUnifIntDist(0, 1);
+        RoC = myUnifIntDist(myRandomEngine);
+       
         if (RoC == 0)
         {
             // same riga  -----> orizzontale
             do
             {
-                nR = rand() % 12;
+                //nR = rand() % 12;
+               uniform_int_distribution<int> myUnifIntDist(0, 11);
+                nR = myUnifIntDist(myRandomEngine);
                 Xi = nR;
                 do
                 {
-                    nC = rand() % 12;
+                    //nC = rand() % 12;
+                    nC = myUnifIntDist(myRandomEngine);
                 } while (nC > 9);
                 Yi = nC;
                 Yf = Yi + 2;
@@ -128,11 +149,14 @@ string Cpu::getCoordinateRND(int flag, char (&defenceFieldCPU)[12][12])
         {
             do
             {
-                Yi = rand() % 12;
+                // Yi = rand() % 12;
+               uniform_int_distribution<int> myUnifIntDist(0, 11);
+                Yi = myUnifIntDist(myRandomEngine);
                 Yf = Yi;
                 do
                 {
-                    nR = rand() % 12;
+                   // nR = rand() % 12;
+                    nR = myUnifIntDist(myRandomEngine);
 
                 } while (nR > 9);
                 Xi = nR;
@@ -154,15 +178,20 @@ string Cpu::getCoordinateRND(int flag, char (&defenceFieldCPU)[12][12])
     }
     else if (flag == 2)
     {
-        RoC = rand() % 2;
+        //RoC = rand() % 2;
+       uniform_int_distribution<int> myUnifIntDist(0, 1);
+        RoC = myUnifIntDist(myRandomEngine);
         if (RoC == 0)
         {
             // same riga  -----> orizzontale
             do
             {
-                nR = rand() % 12;
+               // nR = rand() % 12;
+               uniform_int_distribution<int> myUnifIntDist(0, 11);
+                nR = myUnifIntDist(myRandomEngine);
                 Xi = nR;
-                nC = rand() % 12;
+                //nC = rand() % 12;
+                nC = myUnifIntDist(myRandomEngine);
                 Yi = nC;
                 Yf = Yi;
             } while (casella.posOccupataLine(Xi, Yi, Yf, defenceFieldCPU) == 1);
@@ -182,9 +211,12 @@ string Cpu::getCoordinateRND(int flag, char (&defenceFieldCPU)[12][12])
         {
             do
             {
-                Yi = rand() % 12;
+                //Yi = rand() % 12;
+               uniform_int_distribution<int> myUnifIntDist(0, 11);
+                Yi = myUnifIntDist(myRandomEngine);
                 Yf = Yi;
-                nR = rand() % 12;
+                //nR = rand() % 12;
+                Yi = myUnifIntDist(myRandomEngine);
                 Xi = nR;
                 Xf = Xi;
 
@@ -204,79 +236,3 @@ string Cpu::getCoordinateRND(int flag, char (&defenceFieldCPU)[12][12])
     }
     return coordinateRandom;
 }
-
-
-/*string Cpu::getCoordinataRNDattacco(char (&defenceFieldCPU)[12][12])
-{
-    int Xi, Yi, Xf, Yf; // Xi,Yi => origine fuoco
-    int Xt, Yt; // Xt,Y => target fuoco
-    int nR, nC;
-    int RoC;
-    bool attacco = 0;
-    ostringstream ss;
-    string coordinateRandomattacco;
-    RoC = rand() % 2;
-    if (RoC == 0) // riga
-    {
-        do
-        {
-                nR = rand() % 12;
-                Xi = nR;
-                nC = rand() % 12;
-                Yi = nC;
-                    
-                if (defenceFieldCPU[Xi][Yi] == 'C')
-                { 
-                    // controllo che sia il centro della corazzzata
-                    if (numeri[Xi] == Coordinate::getCentro(coordinateRandomattacco, defenceFieldCPU).at(0) && Yi == Coordinate::getCentro(coordinateRandomattacco, defenceFieldCPU).at(1))
-                    {
-                        attacco = 1;
-                    }
-                }
-
-        } while (attacco == 0);
-        nR = rand() % 12;
-        Xt = nR;
-        nC = rand() % 12;
-        Yt = nC;
-    }
-    else if (RoC == 1)
-    {
-        do
-        {
-
-            nR = rand() % 12;
-            Yi = nR;
-            Xi = rand() % 12;
-
-            if (defenceFieldCPU[Xi][Yi] == 'C' && defenceFieldCPU[Xf][Yf] == 'C')
-            {
-
-                // controllo che sia il centro della corazzzata
-                if (numeri[Xi] == Coordinate::getCentro(coordinateRandomattacco, defenceFieldCPU).at(0) && Yi == Coordinate::getCentro(coordinateRandomattacco, defenceFieldCPU).at(1))
-                {
-                    cout << "son qua\n";
-                    attacco = 1;
-                }
-
-                cout << "attacco: " << attacco << endl;
-            }
-
-        } while (attacco == 0);
-        nR = rand() % 12;
-        Xt = nR;
-        nC = rand() % 12;
-        Yt = nC;
-    }
-    // coordinate origine
-    // cout<<"coordinata Y "<<Yi<<endl;
-    ss << numeri[Xi] << Yi << " " << numeri[Xt] << Yt;
-    coordinateRandomattacco = ss.str();
-    cout << "XYorigin XYtarget | " << coordinateRandomattacco << endl;
-    return coordinateRandomattacco;
-}*/
-
-
-
-
-

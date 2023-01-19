@@ -3,13 +3,14 @@
 #include <sstream>
 #include <vector>
 #include <stdexcept>
-#include <tuple>
+#include <time.h>
 #include "Coordinate.h"
 
 using namespace std;
 
 Coordinate::Coordinate()
 {
+    srand((unsigned int)time(NULL));
 }
 
 vector<int> Coordinate::convertStringToInt(string coordinata)
@@ -108,11 +109,6 @@ vector<int> Coordinate::getCentro(string coordinata, char (&defenceFieldPlayer)[
 
 bool Coordinate::posOccupataLine(int Xi, int Yi, int Yf, char (&defenceFieldCPU)[12][12]){
  
-
-    char ASCII_C='C';
-    char ASCII_S='S';
-    char ASCII_E='E';
-
     bool posOccupata = 0;
  
     for(int i=Yi;i<=Yf;i++)
@@ -140,10 +136,6 @@ bool Coordinate::posOccupataLine(int Xi, int Yi, int Yf, char (&defenceFieldCPU)
 }
 bool Coordinate::posOccupataCol(int Yi, int Xi, int Xf, char (&defenceFieldCPU)[12][12]){
  
-    char ASCII_C='C';
-    char ASCII_S='S';
-    char ASCII_E='E';
-
     bool posOccupata = 0;   
     
 
@@ -193,43 +185,3 @@ vector<char> Coordinate::getCentroRandom(vector<string>coordinateCorazzate){
 
 
 
-
-   
-   
-/*bool Coordinate::getCentroRandom(bool centro,string coordinata, char (&defenceFieldPlayer)[12][12])
-{
-    vector<int> coordinataCentro = Coordinate::convertStringToInt(coordinata);
-    vector<int> coordinataFinale;
-    centro=0;
-    // se la corazzata e' messa in orizzontale
-        if (defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == 'C')
-        {
-            if (defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]][(coordinataCentro[1]) + 1] && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1] + 2] && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1] - 1] && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1] - 2]
-                // nave in verticale
-                || (defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0] + 1][coordinataCentro[1]] && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0] + 2][coordinataCentro[1]] && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0] - 1][coordinataCentro[1]] && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0] - 2][coordinataCentro[1]]))
-            {
-
-                coordinataFinale.push_back(coordinataCentro[0]);
-                coordinataFinale.push_back(coordinataCentro[1]);
-                centro=1;
-                return centro;
-            }
-        }
-        else if (defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == 'S')
-        {
-            if (defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]][(coordinataCentro[1]) + 1] && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1] - 1] || (defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0] + 1][coordinataCentro[1]] && defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == defenceFieldPlayer[coordinataCentro[0] - 1][coordinataCentro[1]]))
-            {
-                coordinataFinale.push_back(coordinataCentro[0]);
-                coordinataFinale.push_back(coordinataCentro[1]);
-                centro=1;
-                return centro;
-            }
-        }
-        else if (defenceFieldPlayer[coordinataCentro[0]][coordinataCentro[1]] == 'E')
-        {
-            coordinataFinale.push_back(coordinataCentro[0]);
-            coordinataFinale.push_back(coordinataCentro[1]);
-            centro=1;
-            return centro;
-        }
-    }*/
